@@ -60,6 +60,8 @@ public class Product {
 	
 	
 	// Method will be called from GUI. Will be connected with database. 
+	
+	// asdasdasd
 	void Sell() {
 		// Ne yapilacak?
 	}
