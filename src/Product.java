@@ -20,29 +20,33 @@ public class Product {
     private float product_price;
     private String product_color;
     private String product_description;
-    private int seller_id;
+    private int seller_id;// Seller Class'i olusturulunca eklenecek
     private int quantity;
-    private int seller_id; // Seller Class'i olusturulunca eklenecek
     private Date expDate;
+
+    private String brand;
+    private float sellPrice;
     private static Date now;
 
 
-    Product(int productId_, String productName_, Category category_, float product_price, String product_color_, int quantity_, Date expDate_){
+    Product(int productId_, String productName_, Category category_, float product_price, float sellPrice_, String product_color_, int quantity_, Date expDate_, String brand_){
         this.productId = productId_;
         this.productName = productName_;
         this.category = category_.product_category_code;
         this.product_price = product_price;
+        this.sellPrice = sellPrice_;
         this.product_color = product_color_;
         this.product_description = category_.product_category_description;
         this.quantity = quantity_;
         this.expDate = expDate_;
+        this.brand = brand_;
         AddCategory(category_);
         productId+=1;
     }
 
     // Method will be called from GUI. Will be connected with database.
-    void AddProduct(int productId_, String productName_, Category category_, float product_price, String product_color_, int quantity_, Date expDate_) {
-        productList.add(new Product(productId_,productName_, category_, product_price, product_color_, quantity_, expDate_));
+    void AddProduct(int productId_, String productName_, Category category_, float product_price, float sellPrice_, String product_color_, int quantity_, Date expDate_, String brand_) {
+        productList.add(new Product(productId_,productName_, category_, product_price, sellPrice_, product_color_, quantity_, expDate_, brand_));
     }
 
     // Method will be called from GUI. Will be connected with database.
@@ -118,9 +122,9 @@ public class Product {
 
      void showAll(){
         for(Product product : productList){
-            System.out.println("Product Name: " + product.productName + "Product ID: " + product.productId +
-                    "Category: " + product.category +"Sell Price: " + product.product_price + "Quantity: " + product.quantity +
-                    "Expiration Date: " +product.expDate + "\n");
+            System.out.println("Product Name: " + product.productName + " Product ID: " + product.productId + " Brand: " + product.brand +
+                    " Category: " + product.category + " Price: " + product.product_price + " Sell Price: " + product.sellPrice + " Quantity: " + product.quantity +
+                    " Expiration Date: " +product.expDate + "\n");
         }
     }
 

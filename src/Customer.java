@@ -2,7 +2,7 @@ import java.util.List;
 
 public class Customer {
 
-    private int user_id;
+    private int user_id = 1000;
     private String first_name;
     private String last_name;
     private String login_name;
@@ -17,12 +17,13 @@ public class Customer {
     }
 
     Customer(int user_id_, String first_name_, String last_name_, String login_name_, String gender_, String city_){
-        this.user_id = user_id_; // ??? Degismesi gerekecek id'nin, +1 olarak arttir her seferinde
+        this.user_id = user_id_;
         this.first_name = first_name_;
         this.last_name = last_name_;
         this.login_name = login_name_;
         this.gender = gender_;
         this.city = city_;
+        this.user_id+=1;
     }
 
     public static void showInfos(Customer customer){
