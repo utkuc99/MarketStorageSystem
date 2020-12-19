@@ -1,7 +1,5 @@
 import java.util.*;
-import java.io.*;
 import java.text.SimpleDateFormat;
-import java.time.*;
 
 public class Product {
 
@@ -16,23 +14,26 @@ public class Product {
     ArrayList<Product> productList= new ArrayList<Product>();
     ArrayList<String> categoryList = new ArrayList<String>();
 
+    private int productId = 1000;
     private String productName;
     private String category;
-    private String brand;
-    private float buyPrice;
-    private float sellPrice;
+    private float product_price;
+    private String product_color;
+    private String product_description;
+    private int seller_id;
     private int quantity;
+    private int seller_id; // Seller Class'i olusturulunca eklenecek
     private Date expDate;
     private static Date now;
-    private int productId = 1000;
 
-    Product(int productId_, String productName_, String category_, String brand_, float buyPrice_, float sellPrice_, int quantity_, Date expDate_){
+
+    Product(int productId_, String productName_, Category category_, float product_price, String product_color_, int quantity_, Date expDate_){
         this.productId = productId_;
         this.productName = productName_;
-        this.category = category_;
-        this.brand = brand_;
-        this.buyPrice = buyPrice_;
-        this.sellPrice = sellPrice_;
+        this.category = category_.product_category_code;
+        this.product_price = product_price;
+        this.product_color = product_color_;
+        this.product_description = category_.product_category_description;
         this.quantity = quantity_;
         this.expDate = expDate_;
         AddCategory(category_);
@@ -40,14 +41,14 @@ public class Product {
     }
 
     // Method will be called from GUI. Will be connected with database.
-    void AddProduct(int productId_ ,String productName_, String category_, String brand_, float buyPrice_, float sellPrice_, int quantity_, Date expDate_) {
-        productList.add(new Product(productId_,productName_, category_, brand_, buyPrice_, sellPrice_, quantity_, expDate_));
+    void AddProduct(int productId_, String productName_, Category category_, float product_price, String product_color_, int quantity_, Date expDate_) {
+        productList.add(new Product(productId_,productName_, category_, product_price, product_color_, quantity_, expDate_));
     }
 
     // Method will be called from GUI. Will be connected with database.
-    void AddCategory(String category_) {
-        if(!categoryList.contains(category_)) {
-            categoryList.add(category_);
+    void AddCategory(Category category_) {
+        if(!categoryList.contains(category_.product_category_code)) {
+            categoryList.add(category_.product_category_code);
         }
         else {
             System.out.println("This category already exists!");
@@ -117,9 +118,9 @@ public class Product {
 
      void showAll(){
         for(Product product : productList){
-            System.out.println("Product Name: " + product.productName + "Product ID: " + product.productId + "Category: " + product.category
-                    + "Brand: " + product.brand  + "Buy Price: " +product.buyPrice +"Sell Price: "
-                    + product.sellPrice + "Quantity: " + product.quantity + "Expiration Date: " +product.expDate + "\n");
+            System.out.println("Product Name: " + product.productName + "Product ID: " + product.productId +
+                    "Category: " + product.category +"Sell Price: " + product.product_price + "Quantity: " + product.quantity +
+                    "Expiration Date: " +product.expDate + "\n");
         }
     }
 
