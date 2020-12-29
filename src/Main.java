@@ -28,6 +28,10 @@ public class Main {
         Seller.addSeller("Name","LastName","loginname","Gender", "City");
 
 
+        // showInfos icinde butun bilgileri iceren bir Customer instance return eder.
+        Customer c1 = Customer.showInfos(32);
+        System.out.println(c1.firstName_ + " "+ c1.lastName_ + " " + c1.loginName_ + " " +
+                c1.gender_ + " " + c1.city_);
 
 
         if(myCon != null)
