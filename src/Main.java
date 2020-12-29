@@ -21,7 +21,11 @@ public class Main {
         // Create a statement
         // Statement mySt = myCon.createStatement();
 
-        Customer.addCustomer();
+        // adCustomer() : 4 parametre aliyor : firstname, lastname, loginname, gender, city
+        Customer.addCustomer("Umut","Cirak","umut_cirak123","Male", "Ankara");
+
+        // adSeller() : 4 parametre aliyor : firstname, lastname, loginname, gender, city
+        Seller.addSeller("Name","LastName","loginname","Gender", "City");
 
 
 

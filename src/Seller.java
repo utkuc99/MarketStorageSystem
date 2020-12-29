@@ -2,33 +2,14 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
-public class Customer {
+public class Seller {
 
     static final String DB_URL = "jdbc:mysql://localhost:3306/marketstoragesystem";
     static final String USER = "root";
     static final String PASS = "Uc1234";
 
 
-
-    public static void showInfos(Customer customer){
-
-    }
-
-    public void orderProduct(){
-
-    }
-
-
-    public void listPendingOrders(){
-    }
-
-
-    public void listPurchasedProducts(){
-
-    }
-
-
-    public static void addCustomer(String firstname, String lastname, String loginname, String gender, String city){
+    public static void addSeller(String firstname, String lastname, String loginname, String gender, String city){
         try{
             Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
             PreparedStatement myPrepSt = null;
@@ -37,8 +18,8 @@ public class Customer {
 
             // Customer burada ana ekrandaki Add User butonuna basacak ve Customer bilgilerini girecek
             // id otomatik olarak atanıyor
-            int id = 32;
-            query = "select max(id) from customer";
+            int id = 0;
+            query = "select max(id) from seller";
             myPrepSt = myCon.prepareStatement(query);
             rs = myPrepSt.executeQuery();
             while (rs.next()){
@@ -46,8 +27,9 @@ public class Customer {
             }
             id ++ ;
 
+
             // Database Statement
-           query = "insert into customer values (?, ?, ?, ?, ?, ?)";
+            query = "insert into seller values (?, ?, ?, ?, ?, ?)";
 
             myPrepSt = myCon.prepareStatement(query);
             myPrepSt.setInt(1,id);
