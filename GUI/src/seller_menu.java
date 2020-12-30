@@ -2,8 +2,8 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class seller_menu {
-    public static void seller(String args[]) {
-        JFrame f = new JFrame("Main Menu");
+    public static void seller() {
+        JFrame f = new JFrame("Seller Menu");
 
         JButton view_products = new JButton("View Products");
         view_products.setBounds(20, 20, 120, 25);

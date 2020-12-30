@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class login_page {
-    public static void login() {
+    public static void main(String args[]) {
 
         JFrame f=new JFrame("Login");
         JLabel l1,l2;
@@ -26,6 +26,11 @@ public class login_page {
 
                 String username = F_user.getText();
                 String password = F_pass.getText();
+
+                System.out.println(username);
+                System.out.println(password);
+
+                seller_menu.seller();
 
             }
         });
