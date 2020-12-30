@@ -151,6 +151,44 @@ public class Seller extends User {
 
     }
 
+    public static ArrayList<Product> showSoldProducts(int sellerID){
+        ArrayList<Product> selled_products = new ArrayList<Product>();
+        try{
+            Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
+            PreparedStatement myPrepSt = null;
+            String query = "";
+            ResultSet productsSet = null;
+
+
+            query = "select * from products_purchased , product where seller_ID = ?";
+            myPrepSt = myCon.prepareStatement(query);
+            myPrepSt.setInt(1,sellerID);
+            productsSet = myPrepSt.executeQuery();
+            while (productsSet.next()){
+
+                int id = productsSet.getInt(1);
+                int seller_id = productsSet.getInt(2);
+                int count = productsSet.getInt(4);
+                String name = productsSet.getString(7);
+                double price = productsSet.getDouble(8);
+                String category = productsSet.getString(9);
+                String colour = productsSet.getString(10);
+                String description = productsSet.getString(11);
+
+                Product p = new Product(id,seller_id,name,price,category,colour,description, count);
+                selled_products.add(p);
+            }
+
+            if(myCon != null){ myCon.close();  }
+
+        }catch (Exception exc){
+            exc.printStackTrace();
+        }
+        return selled_products;
+
+
+    }
+
 
 
 

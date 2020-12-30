@@ -130,6 +130,12 @@ public class Main {
                     p.description_+ " " + p.count_);
         }
 
+        ArrayList<Product> selled_Products = Seller.showSoldProducts(1);
+        for(Product p : product_ALL){
+            System.out.println(p.id_ + " " + " " + p.seller_id_ + " " +p.name + " " +
+                    p.price_ + " " + " " + p.category_ + " " +p.colour_ + " " +
+                    p.description_+ " " + p.count_);
+        }
 
 
 
