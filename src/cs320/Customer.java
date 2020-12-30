@@ -174,6 +174,55 @@ public class Customer extends User {
 
     }
 
+    public static ArrayList<Product> filterProducts(String type, Object value){
+        ArrayList<Product> products_filtered = new ArrayList<Product>();
+        try{
+            Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
+            PreparedStatement myPrepSt = null;
+            String query = "";
+            ResultSet rs = null;
+
+            int valI = 0;
+            String valS = "";
+
+            if(type.equals("colour"))
+                query = "select * from product where colour = ?";
+            else if(type.equals("category"))
+                query = "select * from product where category = ?";
+
+
+            myPrepSt = myCon.prepareStatement(query);
+
+            myPrepSt.setObject(1,value);
+            rs = myPrepSt.executeQuery();
+
+            while (rs.next()){
+
+                int id = rs.getInt(1);
+                int seller_id = rs.getInt(2);
+                String name = rs.getString(3);
+                double price = rs.getDouble(4);
+                String category = rs.getString(5);
+                String colour = rs.getString(6);
+                String description = rs.getString(7);
+                int count = rs.getInt(8);
+                Product p = new Product(id,seller_id,name,price,category,colour,description,count);
+                products_filtered.add(p);
+
+            }
+
+            if(myCon != null){ myCon.close();  }
+
+        }catch (Exception exc){
+            exc.printStackTrace();
+        }
+        return products_filtered;
+
+
+
+
+    }
+
 
 
 

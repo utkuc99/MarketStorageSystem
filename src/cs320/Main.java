@@ -137,6 +137,14 @@ public class Main {
                     p.description_+ " " + p.count_);
         }
 
+        System.out.println("\nFILTERED PRODUCTS");
+
+        ArrayList<Product> filtered_Products = Customer.filterProducts("category","School");
+        for(Product p : filtered_Products){
+            System.out.println(p.id_ + " " + " " + p.seller_id_ + " " +p.name + " " +
+                    p.price_ + " " + " " + p.category_ + " " +p.colour_ + " " +
+                    p.description_+ " " + p.count_);
+        }
 
 
 
