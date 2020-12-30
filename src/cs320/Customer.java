@@ -136,6 +136,43 @@ public class Customer extends User {
 
     }
 
+    public static ArrayList<Product> showProducts(){
+        ArrayList<Product> products_all = new ArrayList<Product>();
+        try{
+            Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
+            PreparedStatement myPrepSt = null;
+            String query = "";
+            ResultSet rs = null;
+
+
+            query = "select * from product";
+            myPrepSt = myCon.prepareStatement(query);
+            rs = myPrepSt.executeQuery();
+
+            while (rs.next()){
+
+                int id = rs.getInt(1);
+                int seller_id = rs.getInt(2);
+                String name = rs.getString(3);
+                double price = rs.getDouble(4);
+                String category = rs.getString(5);
+                String colour = rs.getString(6);
+                String description = rs.getString(7);
+                int count = rs.getInt(8);
+                Product p = new Product(id,seller_id,name,price,category,colour,description,count);
+                products_all.add(p);
+
+            }
+
+            if(myCon != null){ myCon.close();  }
+
+        }catch (Exception exc){
+            exc.printStackTrace();
+        }
+        return products_all;
+
+
+    }
 
 
 
