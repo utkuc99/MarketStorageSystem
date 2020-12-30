@@ -195,40 +195,11 @@ public class seller_menu {
         });
 
 
-        JButton add_categories = new JButton("Add Categorie");
-        add_categories.setBounds(180, 60, 150, 25);
-        add_categories.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                JFrame g = new JFrame("Add Categorie");
-                JLabel l1;
-                l1=new JLabel("Categorie Name");
-                l1.setBounds(30,15, 100,30);
-
-                JTextField F_categorie = new JTextField();
-                F_categorie.setBounds(140, 15, 210, 30);
-
-                JButton submit_but=new JButton("Submit");
-                submit_but.setBounds(130,60,80,25);
-
-                g.add(l1);
-                g.add(F_categorie);
-                g.add(submit_but);
-
-                g.setSize(400,130);
-                g.setLayout(null);
-                g.setVisible(true);
-                g.setLocationRelativeTo(null);
-
-            }
-        });
-
-
         f.add(view_products);
         f.add(add_product);
         f.add(sell_product);
         f.add(remove_product);
         f.add(view_categories);
-        f.add(add_categories);
 
         f.setSize(600, 200);
         f.setLayout(null);
