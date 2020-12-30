@@ -1,8 +1,8 @@
 import javax.swing.*;
 import java.awt.event.*;
 
-class gui {
-    public static void main(String args[]) {
+public class seller_menu {
+    public static void seller(String args[]) {
         JFrame f = new JFrame("Main Menu");
 
         JButton view_products = new JButton("View Products");
