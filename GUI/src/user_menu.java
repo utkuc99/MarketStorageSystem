@@ -95,10 +95,35 @@ public class user_menu {
             }
         });
 
+        JButton view_purchased = new JButton("View Purchases");
+        view_purchased.setBounds(20, 60, 150, 25);
+        view_purchased.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+
+                JFrame f = new JFrame("Purchases");
+                String[][] data = {
+                        {"Hygiene"},
+                        {"Chocolate / Candy"},
+                        {"Drinks"}
+                };
+                String[] columnNames = { "Name" };
+                JTable categories_list= new JTable(data, columnNames);
+                JScrollPane scrollPane = new JScrollPane(categories_list);
+                f.add(scrollPane);
+
+                f.setSize(800, 400);
+                f.setVisible(true);
+                f.setLocationRelativeTo(null);
+
+
+            }
+        });
+
 
         f.add(view_products);
         f.add(buy_product);
         f.add(view_categories);
+        f.add(view_purchased);
 
         f.setSize(600, 200);
         f.setLayout(null);
