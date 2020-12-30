@@ -2,12 +2,16 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
-public class Seller {
+public class Seller extends User {
 
     static final String DB_URL = "jdbc:mysql://localhost:3306/marketstoragesystem";
     static final String USER = "root";
     static final String PASS = "Uc1234";
 
+    public Seller(){ super();}
+    public Seller(int id_, String firstName_, String lastName_, String loginName_, String gender_, String city_) {
+        super(id_, firstName_, lastName_, loginName_, gender_, city_);
+    }
 
     public static void addSeller(String firstname, String lastname, String loginname, String gender, String city){
         try{
@@ -48,6 +52,12 @@ public class Seller {
         }
 
     }
+
+    public void addProduct() {
+
+
+    }
+
 
 
 
