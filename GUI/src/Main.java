@@ -106,7 +106,7 @@ class gui {
                 l1.setBounds(30,15, 100,30);
                 l2=new JLabel("Brand");
                 l2.setBounds(30,53, 100,30);
-                l3=new JLabel("Sell Quantity");
+                l3=new JLabel("Sell Quant.");
                 l3.setBounds(30,91, 150,30);
 
                 JTextField F_name = new JTextField();
@@ -135,9 +135,46 @@ class gui {
             }
         });
 
+
+        JButton remove_product = new JButton("Remove Product");
+        remove_product.setBounds(420, 20, 150, 25);
+        remove_product.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+
+                JFrame g = new JFrame("Remove Product");
+
+                JLabel l1,l2,l3;
+                l1=new JLabel("Name");
+                l1.setBounds(30,15, 100,30);
+                l2=new JLabel("Brand");
+                l2.setBounds(30,53, 100,30);
+
+                JTextField F_name = new JTextField();
+                F_name.setBounds(110, 15, 200, 30);
+                JTextField F_brand=new JTextField();
+                F_brand.setBounds(110, 53, 200, 30);
+
+                JButton submit_but=new JButton("Submit");
+                submit_but.setBounds(130,100,80,25);
+
+                g.add(l1);
+                g.add(l2);
+                g.add(F_name);
+                g.add(F_brand);
+                g.add(submit_but);
+
+                g.setSize(350,200);//400 width and 500 height
+                g.setLayout(null);//using no layout managers
+                g.setVisible(true);//making the frame visible
+                g.setLocationRelativeTo(null);
+            }
+        });
+
+
         f.add(view_products);
         f.add(add_product);
         f.add(sell_product);
+        f.add(remove_product);
 
         f.setSize(600, 200);
         f.setLayout(null);
