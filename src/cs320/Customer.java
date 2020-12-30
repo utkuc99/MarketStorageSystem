@@ -95,7 +95,6 @@ public class Customer extends User {
         return purchased_product;
     }
 
-
     public static void addCustomer(String firstname, String lastname, String loginname, String gender, String city){
         try{
             Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);

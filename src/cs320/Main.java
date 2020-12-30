@@ -92,7 +92,7 @@ public class Main {
         // login(login_name) : GUI anasayfada giris icin login_name alacak, Exm : umut_cirak321
         // Bu login_name ' sahip user customer ise is_Customer = true, seller ise is_Seller = true
         // user = loginName' e sahip olan kisi
-        login("degisik");
+        login("loginname");
         System.out.println("IS CUSTOMER: " + is_Customer + " IS SELLER: " + is_Seller);
         showInfos();
 
@@ -105,16 +105,23 @@ public class Main {
         // seller id, name, price, category, colour, description, count
         //Seller.addProduct(user.id_, "Pen", 15.5,"School","Black","Perfect", 5);
 
+                     /*
         ArrayList<Product> purchased_List = Customer.listPurchasedProducts(user.id_);
         for(Product p : purchased_List){
             System.out.println(p.id_ + " " + " " + p.seller_id_ + " " +p.name + " " +
                     p.price_ + " " + " " + p.category_ + " " +p.colour_ + " " +
                     p.description_);
         }
+                     */
 
        // Customer.orderProduct(1 , user.id_, 5);
 
-
+        ArrayList<Product> onSale = Seller.showProductsOnSale(user.id_);
+        for(Product p : onSale){
+            System.out.println(p.id_ + " " + " " + p.seller_id_ + " " +p.name + " " +
+                    p.price_ + " " + " " + p.category_ + " " +p.colour_ + " " +
+                    p.description_+ " " + p.count_);
+        }
 
 
 
