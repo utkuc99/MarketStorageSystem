@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.table.JTableHeader;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -83,6 +85,11 @@ public class user_menu {
                 };
                 String[] columnNames = { "Name", "Buy Price", "Sell Price", "Quantity", "Category", "Brand", "Expiration Date" };
                 JTable product_list= new JTable(deneme, columnNames);
+
+                JTableHeader anHeader2 = product_list.getTableHeader();
+                anHeader2.setForeground(new Color(0).yellow);
+                anHeader2.setBackground(new Color(0).black);
+
                 JScrollPane scrollPane = new JScrollPane(product_list);
                 f.add(scrollPane);
 
@@ -99,20 +106,35 @@ public class user_menu {
             public void actionPerformed(ActionEvent e){
 
                 JFrame f = new JFrame("Past Purchases");
-                String[][] data = {
-                        {"Hygiene"},
-                        {"Chocolate / Candy"},
-                        {"Drinks"}
+
+                /*
+                JButton main_but=new JButton("Main Page");
+                main_but.setBounds(20,355,150,25);
+                main_but.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        f.dispose();
+                    }
+                });
+                f.add(main_but);
+                 */
+
+                String[][] deneme = {
+                        { "Toilet Paper", "5", "10", "100", "Deneme", "Selpak", "18.07.2021", "aaa" },
+                        { "Biskrem", "5", "10", "100", "Deneme", "Eti", "18.07.2021", "aaa" },
+                        { "Water", "5", "10", "100", "Deneme", "Erikli", "18.07.2021", "aaa" },
+                        { "Choclate", "5", "10", "100", "Deneme", "Nestle", "18.07.2021", "aaa" }
                 };
-                String[] columnNames = { "Name" };
-                JTable categories_list= new JTable(data, columnNames);
-                JScrollPane scrollPane = new JScrollPane(categories_list);
+                String[] columnNames = { "ID", "Seller ID", "Name", "Price", "Category", "Color", "Description", "Count" };
+                JTable purchase_list= new JTable(deneme, columnNames);
+                JTableHeader anHeader = purchase_list.getTableHeader();
+                anHeader.setForeground(new Color(0).yellow);
+                anHeader.setBackground(new Color(0).black);
+                JScrollPane scrollPane = new JScrollPane(purchase_list);
                 f.add(scrollPane);
 
                 f.setSize(800, 400);
                 f.setVisible(true);
                 f.setLocationRelativeTo(null);
-
 
             }
         });
