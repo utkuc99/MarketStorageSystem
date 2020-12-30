@@ -105,8 +105,6 @@ public class seller_menu {
                 JFrame g = new JFrame("Add Product");
 
                 JLabel l1,l2,l3,l4,l5,l6,l7;
-                l1=new JLabel("SellerID");
-                l1.setBounds(30,15, 100,30);
                 l2=new JLabel("Name");
                 l2.setBounds(30,53, 100,30);
                 l3=new JLabel("Price");
@@ -120,8 +118,6 @@ public class seller_menu {
                 l7=new JLabel("Count");
                 l7.setBounds(30,243, 100,30);
 
-                JTextField F_seller = new JTextField();
-                F_seller.setBounds(110, 15, 200, 30);
                 JTextField F_name=new JTextField();
                 F_name.setBounds(110, 53, 200, 30);
                 JTextField F_price=new JTextField();
@@ -140,7 +136,6 @@ public class seller_menu {
                 submit_but.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e){
 
-                        System.out.println(F_seller.getText());
                         System.out.println(F_name.getText());
                         System.out.println(F_price.getText());
                         System.out.println(F_categ.getText());
@@ -159,14 +154,12 @@ public class seller_menu {
                     }
                 });
 
-                g.add(l1);
                 g.add(l2);
                 g.add(l3);
                 g.add(l4);
                 g.add(l5);
                 g.add(l6);
                 g.add(l7);
-                g.add(F_seller);
                 g.add(F_name);
                 g.add(F_price);
                 g.add(F_categ);
