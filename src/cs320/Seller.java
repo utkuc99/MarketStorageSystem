@@ -131,6 +131,26 @@ public class Seller extends User {
 
     }
 
+    public static void removeProduct(int product_ID){
+        try{
+            Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
+            PreparedStatement myPrepSt = null;
+            String query = "";
+
+            query = "DELETE FROM product where id = ?";
+            myPrepSt.setInt(1,product_ID);
+            myPrepSt = myCon.prepareStatement(query);
+
+            myPrepSt.executeUpdate();
+
+
+            if(myCon != null){ myCon.close();  }
+        }catch (Exception exc){
+            exc.printStackTrace();
+        }
+
+    }
+
 
 
 
