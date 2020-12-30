@@ -1,3 +1,7 @@
+package cs320;
+
+import cs320.Customer;
+
 import java.sql.*;
 
 public class Main {
@@ -7,7 +11,7 @@ public class Main {
     static final String PASS = "Uc1234";
 
     static boolean is_Customer = false;
-    static boolean is_Seller = false;
+    public static boolean is_Seller = false;
     static String loginName = "";
     static User user;
 
@@ -75,6 +79,8 @@ public class Main {
 
 
 
+
+
     public static void main(String[] args) {
         // PreparedStatement myPrepSt = null;
         // ResultSet rs = null;
@@ -85,16 +91,18 @@ public class Main {
         // login(login_name) : GUI anasayfada giris icin login_name alacak, Exm : umut_cirak321
         // Bu login_name ' sahip user customer ise is_Customer = true, seller ise is_Seller = true
         // user = loginName' e sahip olan kisi
-        login("umut_cirak320");
+        login("loginname");
         System.out.println("IS CUSTOMER: " + is_Customer + " IS SELLER: " + is_Seller);
         showInfos();
 
         // adCustomer() : 4 parametre aliyor : firstname, lastname, loginname, gender, city
-        Customer.addCustomer("Umut","Cirak","umut_cirak123","Male", "Ankara");
+        Customer.addCustomer("Umut","Cirak","degisik","Male", "Ankara");
 
         // adSeller() : 4 parametre aliyor : firstname, lastname, loginname, gender, city
-        Seller.addSeller("Name","LastName","loginname","Gender", "City");
+        //Seller.addSeller("Name","LastName","loginname","Gender", "City");
 
+        // seller id, name, price, category, colour, description
+       Seller.addProduct(user.id_, "Pen", 15.5,"School","Black","Perfect");
 
 
 

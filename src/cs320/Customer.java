@@ -1,3 +1,5 @@
+package cs320;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -40,12 +42,14 @@ public class Customer extends User {
             String query = "";
             ResultSet rs = null;
 
-            // Customer burada ana ekrandaki Add User butonuna basacak ve Customer bilgilerini girecek
+            // cs320.Customer burada ana ekrandaki Add cs320.User butonuna basacak ve cs320.Customer bilgilerini girecek
             // id otomatik olarak atanıyor
-            int id = 100;
+            int id = 0;
+
             query = "select max(id) from customer";
             myPrepSt = myCon.prepareStatement(query);
             rs = myPrepSt.executeQuery();
+
             while (rs.next()){
                 id = rs.getInt(1);
             }

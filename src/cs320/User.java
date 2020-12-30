@@ -1,3 +1,5 @@
+package cs320;
+
 public class User {
 
     public int id_ ;

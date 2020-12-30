@@ -1,3 +1,5 @@
+package cs320;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -20,7 +22,7 @@ public class Seller extends User {
             String query = "";
             ResultSet rs = null;
 
-            // Customer burada ana ekrandaki Add User butonuna basacak ve Customer bilgilerini girecek
+            // cs320.Customer burada ana ekrandaki Add cs320.User butonuna basacak ve cs320.Customer bilgilerini girecek
             // id otomatik olarak atanıyor
             int id = 0;
             query = "select max(id) from seller";
@@ -30,7 +32,6 @@ public class Seller extends User {
                 id = rs.getInt(1);
             }
             id ++ ;
-
 
             // Database Statement
             query = "insert into seller values (?, ?, ?, ?, ?, ?)";
@@ -50,12 +51,46 @@ public class Seller extends User {
         }catch (Exception exc){
             exc.printStackTrace();
         }
-
     }
 
-    public void addProduct() {
+    public static void addProduct(int seller_id, String name, double price,
+                           String category, String colour, String description) {
+        try{
+
+            Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
+            PreparedStatement myPrepSt = null;
+            String query = "";
+            ResultSet rs = null;
+
+            int id = 0;
+            query = "select max(id) from product";
+            myPrepSt = myCon.prepareStatement(query);
+            rs = myPrepSt.executeQuery();
+            while (rs.next()){
+                id = rs.getInt(1);
+            }
+            id ++ ;
 
 
+            query = "insert into product values (?, ?, ?, ?, ?, ?, ?)";
+
+            myPrepSt = myCon.prepareStatement(query);
+            myPrepSt.setInt(1,id);
+            myPrepSt.setInt(2,seller_id);
+            myPrepSt.setString(3,name);
+            myPrepSt.setDouble(4,price);
+            myPrepSt.setString(5,category);
+            myPrepSt.setString(6,colour);
+            myPrepSt.setString(7,description);
+
+            myPrepSt.executeUpdate();
+
+
+
+            if(myCon != null){ myCon.close();  }
+        }catch (Exception exc){
+            exc.printStackTrace();
+        }
     }
 
 
