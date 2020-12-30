@@ -3,6 +3,7 @@ package cs320;
 import cs320.Customer;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -72,7 +73,7 @@ public class Main {
     }
 
     public static User showInfos(){
-        System.out.println(user.firstName_ + " "+ user.lastName_ + " " + user.loginName_ + " " +
+        System.out.println(user.id_ + " " + user.firstName_ + " "+ user.lastName_ + " " + user.loginName_ + " " +
                 user.gender_ + " " + user.city_);
         return user;
     }
@@ -91,18 +92,25 @@ public class Main {
         // login(login_name) : GUI anasayfada giris icin login_name alacak, Exm : umut_cirak321
         // Bu login_name ' sahip user customer ise is_Customer = true, seller ise is_Seller = true
         // user = loginName' e sahip olan kisi
-        login("loginname");
+        login("degisik");
         System.out.println("IS CUSTOMER: " + is_Customer + " IS SELLER: " + is_Seller);
         showInfos();
 
         // adCustomer() : 4 parametre aliyor : firstname, lastname, loginname, gender, city
-        //Customer.addCustomer("Umut","Cirak","degisik","Male", "Ankara");
+       // Customer.addCustomer("Umut","Cirak","degisik","Male", "Ankara");
 
         // adSeller() : 4 parametre aliyor : firstname, lastname, loginname, gender, city
         //Seller.addSeller("Name","LastName","loginname","Gender", "City");
 
         // seller id, name, price, category, colour, description, count
-       Seller.addProduct(user.id_, "Pen", 15.5,"School","Black","Perfect", 5);
+        //Seller.addProduct(user.id_, "Pen", 15.5,"School","Black","Perfect", 5);
+
+        ArrayList<Product> purchased_List = Customer.listPurchasedProducts(user.id_);
+        for(Product p : purchased_List){
+            System.out.println(p.id_ + " " + " " + p.seller_id_ + " " +p.name + " " +
+                    p.price_ + " " + " " + p.category_ + " " +p.colour_ + " " +
+                    p.description_);
+        }
 
 
 
