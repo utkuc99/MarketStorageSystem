@@ -83,6 +83,9 @@ public class seller_menu {
                         { "Water", "5", "10", "100", "Deneme", "Erikli", "18.07.2021" },
                         { "Choclate", "5", "10", "100", "Deneme", "Nestle", "18.07.2021" }
                 };
+
+                //DATABASE GET PRODUCTS
+
                 String[] columnNames = { "Name", "Buy Price", "Sell Price", "Quantity", "Category", "Brand", "Expiration Date" };
                 JTable product_list= new JTable(deneme, columnNames);
                 JTableHeader anHeader2 = product_list.getTableHeader();
@@ -106,33 +109,33 @@ public class seller_menu {
 
                 JLabel l1,l2,l3,l4,l5,l6,l7;
                 l2=new JLabel("Name");
-                l2.setBounds(30,53, 100,30);
+                l2.setBounds(30,15, 100,30);
                 l3=new JLabel("Price");
-                l3.setBounds(30,91, 100,30);
+                l3.setBounds(30,53, 100,30);
                 l4=new JLabel("Category");
-                l4.setBounds(30,129, 100,30);
+                l4.setBounds(30,91, 100,30);
                 l5=new JLabel("Color");
-                l5.setBounds(30,167, 100,30);
+                l5.setBounds(30,129, 100,30);
                 l6=new JLabel("Description");
-                l6.setBounds(30,205, 100,30);
+                l6.setBounds(30,167, 100,30);
                 l7=new JLabel("Count");
-                l7.setBounds(30,243, 100,30);
+                l7.setBounds(30,205, 100,30);
 
                 JTextField F_name=new JTextField();
-                F_name.setBounds(110, 53, 200, 30);
+                F_name.setBounds(110, 15, 200, 30);
                 JTextField F_price=new JTextField();
-                F_price.setBounds(110, 91, 200, 30);
+                F_price.setBounds(110, 53, 200, 30);
                 JTextField F_categ = new JTextField();
-                F_categ.setBounds(110, 129, 200, 30);
+                F_categ.setBounds(110, 91, 200, 30);
                 JTextField F_color=new JTextField();
-                F_color.setBounds(110, 167, 200, 30);
+                F_color.setBounds(110, 129, 200, 30);
                 JTextField F_desc=new JTextField();
-                F_desc.setBounds(110, 205, 200, 30);
+                F_desc.setBounds(110, 167, 200, 30);
                 JTextField F_count=new JTextField();
-                F_count.setBounds(110, 243, 200, 30);
+                F_count.setBounds(110, 205, 200, 30);
 
                 JButton submit_but=new JButton("Submit");
-                submit_but.setBounds(130,281,80,25);
+                submit_but.setBounds(130,243,80,25);
                 submit_but.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e){
 
@@ -144,6 +147,9 @@ public class seller_menu {
                         System.out.println(F_count.getText());
 
                         boolean sucsessful = true;
+
+                        //DATABASE ADD PRODUCT
+
                         if(sucsessful) {
                             showMessageDialog(null, "Register Sucessful");
                             g.dispose();
@@ -168,7 +174,7 @@ public class seller_menu {
                 g.add(F_count);
                 g.add(submit_but);
 
-                g.setSize(350,350);
+                g.setSize(350,310);
                 g.setLayout(null);
                 g.setVisible(true);
                 g.setLocationRelativeTo(null);
@@ -199,6 +205,9 @@ public class seller_menu {
                         System.out.println(F_id.getText());
 
                         boolean sucsessful = true;
+
+                        //DATABASE REMOVE PRODUCT
+
                         if(sucsessful) {
                             showMessageDialog(null, "Removal Sucessful");
                             g.dispose();
@@ -232,6 +241,9 @@ public class seller_menu {
                         { "Water", "5", "10", "100", "Deneme", "Erikli", "18.07.2021" },
                         { "Choclate", "5", "10", "100", "Deneme", "Nestle", "18.07.2021" }
                 };
+
+                //DATABASE GET PRODUCTS
+
                 String[] columnNames = { "Name", "Buy Price", "Sell Price", "Quantity", "Category", "Brand", "Expiration Date" };
                 JTable product_list= new JTable(deneme, columnNames);
                 JTableHeader anHeader2 = product_list.getTableHeader();
@@ -245,9 +257,6 @@ public class seller_menu {
                 f.setLocationRelativeTo(null);
             }
         });
-
-
-
 
 
         f.add(view_products);

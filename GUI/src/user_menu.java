@@ -83,6 +83,9 @@ public class user_menu {
                         { "Water", "5", "10", "100", "Deneme", "Erikli", "18.07.2021" },
                         { "Choclate", "5", "10", "100", "Deneme", "Nestle", "18.07.2021" }
                 };
+
+                //DATABASE GET PRODUCTS
+
                 String[] columnNames = { "Name", "Buy Price", "Sell Price", "Quantity", "Category", "Brand", "Expiration Date" };
                 JTable product_list= new JTable(deneme, columnNames);
 
@@ -124,6 +127,9 @@ public class user_menu {
                         { "Water", "5", "10", "100", "Deneme", "Erikli", "18.07.2021", "aaa" },
                         { "Choclate", "5", "10", "100", "Deneme", "Nestle", "18.07.2021", "aaa" }
                 };
+
+                //DATABASE GET PRODUCTS
+
                 String[] columnNames = { "ID", "Seller ID", "Name", "Price", "Category", "Color", "Description", "Count" };
                 JTable purchase_list= new JTable(deneme, columnNames);
                 JTableHeader anHeader = purchase_list.getTableHeader();
