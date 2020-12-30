@@ -54,7 +54,7 @@ public class Seller extends User {
     }
 
     public static void addProduct(int seller_id, String name, double price,
-                           String category, String colour, String description) {
+                           String category, String colour, String description, int count) {
         try{
 
             Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
@@ -72,7 +72,7 @@ public class Seller extends User {
             id ++ ;
 
 
-            query = "insert into product values (?, ?, ?, ?, ?, ?, ?)";
+            query = "insert into product values (?, ?, ?, ?, ?, ?, ?, ?)";
 
             myPrepSt = myCon.prepareStatement(query);
             myPrepSt.setInt(1,id);
@@ -82,6 +82,7 @@ public class Seller extends User {
             myPrepSt.setString(5,category);
             myPrepSt.setString(6,colour);
             myPrepSt.setString(7,description);
+            myPrepSt.setInt(8,count);
 
             myPrepSt.executeUpdate();
 

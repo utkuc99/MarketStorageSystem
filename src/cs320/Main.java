@@ -96,13 +96,13 @@ public class Main {
         showInfos();
 
         // adCustomer() : 4 parametre aliyor : firstname, lastname, loginname, gender, city
-        Customer.addCustomer("Umut","Cirak","degisik","Male", "Ankara");
+        //Customer.addCustomer("Umut","Cirak","degisik","Male", "Ankara");
 
         // adSeller() : 4 parametre aliyor : firstname, lastname, loginname, gender, city
         //Seller.addSeller("Name","LastName","loginname","Gender", "City");
 
-        // seller id, name, price, category, colour, description
-       Seller.addProduct(user.id_, "Pen", 15.5,"School","Black","Perfect");
+        // seller id, name, price, category, colour, description, count
+       Seller.addProduct(user.id_, "Pen", 15.5,"School","Black","Perfect", 5);
 
 
 
