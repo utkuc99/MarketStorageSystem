@@ -32,10 +32,10 @@ public class login_page {
         });
 
         JButton seller_register_but=new JButton("Register Seller");
-        seller_register_but.setBounds(26,90,140,25);
+        seller_register_but.setBounds(26,95,140,25);
         seller_register_but.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                JFrame g = new JFrame("Register");
+                JFrame g = new JFrame("Register Seller");
 
                 JLabel l1,l2,l3,l4,l5,l6;
                 l1=new JLabel("First Name");
@@ -103,10 +103,10 @@ public class login_page {
         });
 
         JButton customer_register_but=new JButton("Register Customer");
-        customer_register_but.setBounds(193,90,140,25);
+        customer_register_but.setBounds(193,95,140,25);
         customer_register_but.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                JFrame g = new JFrame("Register");
+                JFrame g = new JFrame("Register Customer");
 
                 JLabel l1,l2,l3,l4,l5,l6;
                 l1=new JLabel("First Name");
