@@ -1,9 +1,10 @@
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class seller_menu {
+public class user_menu {
     public static void start() {
-        JFrame f = new JFrame("Seller Menu");
+        JFrame f = new JFrame("User Menu");
 
         JButton view_products = new JButton("View Products");
         view_products.setBounds(20, 20, 120, 25);

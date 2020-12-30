@@ -30,7 +30,13 @@ public class login_page {
                 System.out.println(username);
                 System.out.println(password);
 
-                seller_menu.seller();
+                if(username.equals("seller")){
+                    seller_menu.start();
+                }else if(username.equals("user")){
+                    user_menu.start();
+                }
+
+
 
             }
         });
