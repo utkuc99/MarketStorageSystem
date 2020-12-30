@@ -17,12 +17,45 @@ public class Customer extends User {
     }
 
 
-    public void orderProduct(){
+    public static void orderProduct(int productID, int customerID, int count){
+        try{
+            Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
+            PreparedStatement myPrepSt = null;
+            String query = "";
+            ResultSet rs = null;
 
 
+            query = "select * from product where id = ?";
+            myPrepSt = myCon.prepareStatement(query);
+            myPrepSt.setInt(1,productID);
+            rs = myPrepSt.executeQuery();
+
+           rs.next();
+           int newCount = rs.getInt(8) - count;
+           int seller_id = rs.getInt(2);
+
+            query = "UPDATE product SET count = ? where( id = ? )";
+            myPrepSt = myCon.prepareStatement(query);
+            myPrepSt.setInt(1,newCount);
+            myPrepSt.setInt(2,productID);
+
+            myPrepSt.executeUpdate();
+
+            query = "insert into products_purchased values (?, ?, ?, ? )";
+            myPrepSt = myCon.prepareStatement(query);
+            myPrepSt.setInt(1,productID);
+            myPrepSt.setInt(2,seller_id);
+            myPrepSt.setInt(3,customerID);
+            myPrepSt.setInt(4,count);
+
+            myPrepSt.executeUpdate();
 
 
+            if(myCon != null){ myCon.close();  }
 
+        }catch (Exception exc){
+            exc.printStackTrace();
+        }
 
     }
 
