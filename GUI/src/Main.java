@@ -22,6 +22,7 @@ class gui {
                 JTable product_list= new JTable(deneme, columnNames);
                 JScrollPane scrollPane = new JScrollPane(product_list);
                 f.add(scrollPane);
+
                 f.setSize(800, 400);
                 f.setVisible(true);
                 f.setLocationRelativeTo(null);
@@ -51,7 +52,6 @@ class gui {
                 l7=new JLabel("Exp. Date");
                 l7.setBounds(30,243, 100,30);
 
-
                 JTextField F_name = new JTextField();
                 F_name.setBounds(110, 15, 200, 30);
                 JTextField F_buyp=new JTextField();
@@ -66,7 +66,6 @@ class gui {
                 F_brand.setBounds(110, 205, 200, 30);
                 JTextField F_expd=new JTextField();
                 F_expd.setBounds(110, 243, 200, 30);
-
 
                 JButton submit_but=new JButton("Submit");
                 submit_but.setBounds(130,281,80,25);
@@ -86,7 +85,49 @@ class gui {
                 g.add(F_brand);
                 g.add(F_expd);
                 g.add(submit_but);
+
                 g.setSize(350,350);
+                g.setLayout(null);
+                g.setVisible(true);
+                g.setLocationRelativeTo(null);
+
+            }
+        });
+
+
+        JButton sell_product = new JButton("Sell Product");
+        sell_product.setBounds(280, 20, 130, 25);
+        sell_product.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                JFrame g = new JFrame("Sell Product");
+
+                JLabel l1,l2,l3;
+                l1=new JLabel("Name");
+                l1.setBounds(30,15, 100,30);
+                l2=new JLabel("Brand");
+                l2.setBounds(30,53, 100,30);
+                l3=new JLabel("Sell Quantity");
+                l3.setBounds(30,91, 150,30);
+
+                JTextField F_name = new JTextField();
+                F_name.setBounds(110, 15, 200, 30);
+                JTextField F_brand=new JTextField();
+                F_brand.setBounds(110, 53, 200, 30);
+                JTextField F_quan=new JTextField();
+                F_quan.setBounds(110, 91, 200, 30);
+
+                JButton submit_but=new JButton("Submit");
+                submit_but.setBounds(130,140,80,25);
+
+                g.add(l1);
+                g.add(l2);
+                g.add(l3);
+                g.add(F_name);
+                g.add(F_brand);
+                g.add(F_quan);
+                g.add(submit_but);
+
+                g.setSize(350,220);
                 g.setLayout(null);
                 g.setVisible(true);
                 g.setLocationRelativeTo(null);
@@ -96,6 +137,8 @@ class gui {
 
         f.add(view_products);
         f.add(add_product);
+        f.add(sell_product);
+
         f.setSize(600, 200);
         f.setLayout(null);
         f.setVisible(true);
