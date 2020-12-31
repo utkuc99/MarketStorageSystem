@@ -3,12 +3,26 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class user_menu {
     public static void start(String user_id) {
         JFrame f = new JFrame("User Menu");
+
+        JRadioButton rb1,rb2;
+
+        rb1= new JRadioButton("Category");
+        rb1.setBounds(20,100,100,30);
+        rb2=new JRadioButton("Color");
+        rb2.setBounds(20,145,100,30);
+        ButtonGroup bg=new ButtonGroup();
+        JTextField F_categ = new JTextField();
+        F_categ.setBounds(140, 100, 200, 30);
+        JTextField F_color = new JTextField();
+        F_color.setBounds(140, 145, 200, 30);
+
 
         JButton show_info_but=new JButton("Show Info");
         show_info_but.setBounds(190,20,150,25);
@@ -84,6 +98,15 @@ public class user_menu {
                         { "Choclate", "5", "10", "100", "Deneme", "Nestle", "18.07.2021" }
                 };
 
+                if(rb1.isSelected()){
+                    System.out.println("Condition 1");
+                    System.out.println(F_categ.getText());
+                }
+                if(rb2.isSelected()){
+                    System.out.println("Condition 2");
+                    System.out.println(F_color.getText());
+                }
+
                 //DATABASE GET PRODUCTS
 
                 String[] columnNames = { "Name", "Buy Price", "Sell Price", "Quantity", "Category", "Brand", "Expiration Date" };
@@ -104,7 +127,7 @@ public class user_menu {
         });
 
 
-        JButton view_purchased = new JButton("Show Purchased Products");
+        JButton view_purchased = new JButton("Past Purchases");
         view_purchased.setBounds(20, 60, 150, 25);
         view_purchased.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
@@ -193,12 +216,18 @@ public class user_menu {
         });
 
 
+
+
+
+
+        f.add(rb1);f.add(rb2);
+        f.add(F_categ);f.add(F_color);
         f.add(view_products);
         f.add(view_purchased);
         f.add(show_info_but);
         f.add(buy_product);
 
-        f.setSize(360, 180);
+        f.setSize(360, 250);
         f.setLayout(null);
         f.setVisible(true);
         f.setLocationRelativeTo(null);
