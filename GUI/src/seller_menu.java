@@ -259,11 +259,67 @@ public class seller_menu {
         });
 
 
+        JButton change_product_count = new JButton("Upd. Product Count");
+        change_product_count.setBounds(190, 100, 150, 25);
+        change_product_count.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                JFrame g = new JFrame("Add Product");
+
+                JLabel l2,l3;
+                l2=new JLabel("Product_ID");
+                l2.setBounds(30,15, 100,30);
+                l3=new JLabel("Inc. Amount");
+                l3.setBounds(30,53, 100,30);
+
+                JTextField F_product=new JTextField();
+                F_product.setBounds(110, 15, 200, 30);
+                JTextField F_amount=new JTextField();
+                F_amount.setBounds(110, 53, 200, 30);
+
+
+                JButton submit_but=new JButton("Submit");
+                submit_but.setBounds(130,91,80,25);
+                submit_but.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e){
+
+                        System.out.println(F_product.getText());
+                        System.out.println(F_amount.getText());
+
+                        boolean sucsessful = true;
+
+                        //DATABASE ADD PRODUCT
+
+                        if(sucsessful) {
+                            showMessageDialog(null, "Register Sucessful");
+                            g.dispose();
+                        }else{
+                            showMessageDialog(null, "Register Failed");
+                        }
+
+                    }
+                });
+
+                g.add(l2);
+                g.add(l3);
+                g.add(F_product);
+                g.add(F_amount);
+                g.add(submit_but);
+
+                g.setSize(350,150);
+                g.setLayout(null);
+                g.setVisible(true);
+                g.setLocationRelativeTo(null);
+
+            }
+        });
+
+
         f.add(view_products);
         f.add(add_product);
         f.add(remove_product);
         f.add(sold_products);
         f.add(show_info_but);
+        f.add(change_product_count);
 
         f.setSize(400, 200);
         f.setLayout(null);
