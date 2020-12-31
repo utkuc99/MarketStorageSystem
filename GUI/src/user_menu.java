@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class user_menu {
-    public static void start() {
+    public static void start(String user_id) {
         JFrame f = new JFrame("User Menu");
 
         JButton show_info_but=new JButton("Show Info");
@@ -87,6 +87,7 @@ public class user_menu {
                 //DATABASE GET PRODUCTS
 
                 String[] columnNames = { "Name", "Buy Price", "Sell Price", "Quantity", "Category", "Brand", "Expiration Date" };
+
                 JTable product_list= new JTable(deneme, columnNames);
 
                 JTableHeader anHeader2 = product_list.getTableHeader();
@@ -145,10 +146,57 @@ public class user_menu {
             }
         });
 
+        JButton buy_product = new JButton("Buy Product");
+        buy_product.setBounds(190, 60, 150, 25);
+        buy_product.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFrame f=new JFrame("Buy Product");
+                JLabel l1,l2;
+                l1=new JLabel("Product ID");
+                l1.setBounds(30,15, 100,30);
+
+                JTextField F_product = new JTextField();
+                F_product.setBounds(110, 15, 200, 30);
+
+                JButton buy_but=new JButton("BUY");
+                buy_but.setBounds(120,55,120,25);
+                buy_but.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e){
+
+                        String product_id = F_product.getText();
+
+                        System.out.println(user_id + product_id);
+
+                        boolean sucsessful = true;
+
+                        //DATABASE ADD PRODUCT
+
+                        if(sucsessful) {
+                            showMessageDialog(null, "Register Sucessful");
+                            f.dispose();
+                        }else{
+                            showMessageDialog(null, "Register Failed");
+                        }
+
+                    }
+                });
+
+                f.add(buy_but);
+                f.add(l1);
+                f.add(F_product);
+
+                f.setSize(360,180);
+                f.setLayout(null);
+                f.setVisible(true);
+                f.setLocationRelativeTo(null);
+            }
+        });
+
 
         f.add(view_products);
         f.add(view_purchased);
         f.add(show_info_but);
+        f.add(buy_product);
 
         f.setSize(360, 180);
         f.setLayout(null);

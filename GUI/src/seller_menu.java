@@ -6,7 +6,7 @@ import java.awt.event.*;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class seller_menu {
-    public static void start() {
+    public static void start(String user_id) {
         JFrame f = new JFrame("Seller Menu");
 
         JButton show_info_but=new JButton("Show Info");

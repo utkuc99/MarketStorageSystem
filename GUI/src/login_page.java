@@ -24,9 +24,9 @@ public class login_page {
                 System.out.println(username);
 
                 if(username.equals("seller")){
-                    seller_menu.start();
+                    seller_menu.start(username);
                 }else if(username.equals("user")){
-                    user_menu.start();
+                    user_menu.start(username);
                 }
             }
         });
