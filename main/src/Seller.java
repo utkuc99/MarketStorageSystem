@@ -122,7 +122,7 @@ public class Seller extends User {
         }
     }
 
-    public static ArrayList<Product> showProductsOnSale(int seller_ID){
+    public static ArrayList<Product> showProductsOnSale(int sellerID){
         ArrayList<Product> products_on_sale = new ArrayList<Product>();
         try{
             Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
@@ -130,10 +130,9 @@ public class Seller extends User {
             String query = "";
             ResultSet rs = null;
 
-
             query = "select * from product where seller_id = ?";
             myPrepSt = myCon.prepareStatement(query);
-            myPrepSt.setInt(1,seller_ID);
+            myPrepSt.setInt(1,sellerID);
             rs = myPrepSt.executeQuery();
             while (rs.next()){
 
@@ -144,7 +143,7 @@ public class Seller extends User {
                 String colour = rs.getString(6);
                 String description = rs.getString(7);
                 int count = rs.getInt(8);
-                Product p = new Product(id,seller_ID,name,price,category,colour,description,count);
+                Product p = new Product(id,sellerID,name,price,category,colour,description,count);
                 products_on_sale.add(p);
 
             }
@@ -156,26 +155,27 @@ public class Seller extends User {
         }
         return products_on_sale;
 
-
     }
 
     public static void removeProduct(int product_ID){
+
         try{
             Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
             PreparedStatement myPrepSt = null;
             String query = "";
+            ResultSet rs = null;
 
-            query = "DELETE FROM product where id = ?";
-            myPrepSt.setInt(1,product_ID);
+            query = "DELETE FROM product WHERE id = " + product_ID + ";";
             myPrepSt = myCon.prepareStatement(query);
 
             myPrepSt.executeUpdate();
 
-
             if(myCon != null){ myCon.close();  }
-        }catch (Exception exc){
-            exc.printStackTrace();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+
 
     }
 
@@ -188,7 +188,7 @@ public class Seller extends User {
             ResultSet productsSet = null;
 
 
-            query = "select * from products_purchased , product where seller_ID = ?";
+            query = "select * from products_purchased ,product where product.seller_id = ?";
             myPrepSt = myCon.prepareStatement(query);
             myPrepSt.setInt(1,sellerID);
             productsSet = myPrepSt.executeQuery();

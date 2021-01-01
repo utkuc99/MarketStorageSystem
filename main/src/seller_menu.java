@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -78,17 +79,26 @@ public class seller_menu {
             public void actionPerformed(ActionEvent e){
 
                 JFrame f = new JFrame("Products Available");
-                String[][] deneme = {
-                        { "Toilet Paper", "5", "10", "100", "Deneme", "Selpak", "18.07.2021" },
-                        { "Biskrem", "5", "10", "100", "Deneme", "Eti", "18.07.2021" },
-                        { "Water", "5", "10", "100", "Deneme", "Erikli", "18.07.2021" },
-                        { "Choclate", "5", "10", "100", "Deneme", "Nestle", "18.07.2021" }
-                };
+
+                ArrayList<Product> list = Seller.showProductsOnSale(Main.user.id_);
+
+                int sz = list.size();
+                String[][] deneme_2 = new String[sz][8];
+                for (int i = 0; i < sz ; i++) {
+                    deneme_2[i][0] = Integer.toString(list.get(i).id_);
+                    deneme_2[i][1] = list.get(i).name;
+                    deneme_2[i][2] = Integer.toString(list.get(i).seller_id_);
+                    deneme_2[i][3] = Double.toString(list.get(i).price_);
+                    deneme_2[i][4] = list.get(i).category_;
+                    deneme_2[i][5] = list.get(i).colour_;
+                    deneme_2[i][6] = list.get(i).description_;
+                    deneme_2[i][7] = Integer.toString(list.get(i).count_);
+                }
 
                 //DATABASE GET PRODUCTS
 
-                String[] columnNames = { "Name", "Buy Price", "Sell Price", "Quantity", "Category", "Brand", "Expiration Date" };
-                JTable product_list= new JTable(deneme, columnNames);
+                String[] columnNames = { "Product ID","Name", "Seller ID", "Price", "Category", "Color", "Description", "Quantity" };
+                JTable product_list= new JTable(deneme_2, columnNames);
                 JTableHeader anHeader2 = product_list.getTableHeader();
                 anHeader2.setForeground(new Color(0).yellow);
                 anHeader2.setBackground(new Color(0).black);
@@ -200,7 +210,8 @@ public class seller_menu {
                 submit_but.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e){
 
-                        System.out.println(F_id.getText());
+                        int pID = Integer.parseInt(F_id.getText());
+                        Seller.removeProduct(pID);
 
                         boolean sucsessful = true;
 
@@ -233,17 +244,25 @@ public class seller_menu {
             public void actionPerformed(ActionEvent e){
 
                 JFrame f = new JFrame("Products Available");
-                String[][] deneme = {
-                        { "Toilet Paper", "5", "10", "100", "Deneme", "Selpak", "18.07.2021" },
-                        { "Biskrem", "5", "10", "100", "Deneme", "Eti", "18.07.2021" },
-                        { "Water", "5", "10", "100", "Deneme", "Erikli", "18.07.2021" },
-                        { "Choclate", "5", "10", "100", "Deneme", "Nestle", "18.07.2021" }
-                };
+
+                ArrayList<Product> list = Seller.showSoldProducts(Main.user.id_);
+                int sz = list.size();
+                String[][] deneme_2 = new String[sz][8];
+                for (int i = 0; i < sz ; i++) {
+                    deneme_2[i][0] = Integer.toString(list.get(i).id_);
+                    deneme_2[i][1] = list.get(i).name;
+                    deneme_2[i][2] = Integer.toString(list.get(i).seller_id_);
+                    deneme_2[i][3] = Double.toString(list.get(i).price_);
+                    deneme_2[i][4] = list.get(i).category_;
+                    deneme_2[i][5] = list.get(i).colour_;
+                    deneme_2[i][6] = list.get(i).description_;
+                    deneme_2[i][7] = Integer.toString(list.get(i).count_);
+                }
 
                 //DATABASE GET PRODUCTS
 
-                String[] columnNames = { "Name", "Buy Price", "Sell Price", "Quantity", "Category", "Brand", "Expiration Date" };
-                JTable product_list= new JTable(deneme, columnNames);
+                String[] columnNames = { "Product ID","Name", "Seller ID", "Price", "Category", "Color", "Description", "Quantity" };
+                JTable product_list= new JTable(deneme_2, columnNames);
                 JTableHeader anHeader2 = product_list.getTableHeader();
                 anHeader2.setForeground(new Color(0).yellow);
                 anHeader2.setBackground(new Color(0).black);

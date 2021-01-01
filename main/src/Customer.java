@@ -104,13 +104,14 @@ public class Customer extends User {
 
                 int id = productsSet.getInt(1);
                 int seller_id = productsSet.getInt(2);
+                int count = productsSet.getInt(4);
                 String name = productsSet.getString(7);
                 double price = productsSet.getDouble(8);
                 String category = productsSet.getString(9);
                 String colour = productsSet.getString(10);
                 String description = productsSet.getString(11);
 
-                Product p = new Product(id,seller_id,name,price,category,colour,description);
+                Product p = new Product(id,seller_id,name,price,category,colour,description,count);
                 purchased_product.add(p);
 
             }

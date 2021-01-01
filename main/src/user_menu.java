@@ -107,15 +107,16 @@ public class user_menu {
                 }
 
                 int sz = list.size();
-                String[][] deneme_2 = new String[sz][7];
+                String[][] deneme_2 = new String[sz][8];
                 for (int i = 0; i < sz ; i++) {
-                    deneme_2[i][0] = list.get(i).name;
-                    deneme_2[i][1] = Integer.toString(list.get(i).seller_id_);
-                    deneme_2[i][2] = Double.toString(list.get(i).price_);
-                    deneme_2[i][3] = list.get(i).category_;
-                    deneme_2[i][4] = list.get(i).colour_;
-                    deneme_2[i][5] = list.get(i).description_;
-                    deneme_2[i][6] = Integer.toString(list.get(i).count_);
+                    deneme_2[i][0] = Integer.toString(list.get(i).id_);
+                    deneme_2[i][1] = list.get(i).name;
+                    deneme_2[i][2] = Integer.toString(list.get(i).seller_id_);
+                    deneme_2[i][3] = Double.toString(list.get(i).price_);
+                    deneme_2[i][4] = list.get(i).category_;
+                    deneme_2[i][5] = list.get(i).colour_;
+                    deneme_2[i][6] = list.get(i).description_;
+                    deneme_2[i][7] = Integer.toString(list.get(i).count_);
                 }
 
 
@@ -123,7 +124,7 @@ public class user_menu {
 
                 //DATABASE GET PRODUCTS
 
-                String[] columnNames = { "Name", "Seller ID", "Price", "Category", "Color", "Description", "Quantity" };
+                String[] columnNames = { "Product ID","Name", "Seller ID", "Price", "Category", "Color", "Description", "Quantity" };
 
                 JTable product_list= new JTable(deneme_2, columnNames);
 
@@ -148,17 +149,23 @@ public class user_menu {
 
                 JFrame f = new JFrame("Past Purchases");
 
-                String[][] deneme = {
-                        { "Toilet Paper", "5", "10", "100", "Deneme", "Selpak", "18.07.2021", "aaa" },
-                        { "Biskrem", "5", "10", "100", "Deneme", "Eti", "18.07.2021", "aaa" },
-                        { "Water", "5", "10", "100", "Deneme", "Erikli", "18.07.2021", "aaa" },
-                        { "Choclate", "5", "10", "100", "Deneme", "Nestle", "18.07.2021", "aaa" }
-                };
+                ArrayList<Product> list = Customer.listPurchasedProducts(Main.user.id_);
+                int sz = list.size();
+                String[][] deneme_2 = new String[sz][7];
+                for (int i = 0; i < sz ; i++) {
+                    deneme_2[i][0] = list.get(i).name;
+                    deneme_2[i][1] = Integer.toString(list.get(i).seller_id_);
+                    deneme_2[i][2] = Double.toString(list.get(i).price_);
+                    deneme_2[i][3] = list.get(i).category_;
+                    deneme_2[i][4] = list.get(i).colour_;
+                    deneme_2[i][5] = list.get(i).description_;
+                    deneme_2[i][6] = Integer.toString(list.get(i).count_);
+                }
 
                 //DATABASE GET PRODUCTS
 
-                String[] columnNames = { "ID", "Seller ID", "Name", "Price", "Category", "Color", "Description", "Count" };
-                JTable purchase_list= new JTable(deneme, columnNames);
+                String[] columnNames = { "Name", "Seller ID", "Price", "Category", "Color", "Description", "Quantity" };
+                JTable purchase_list= new JTable(deneme_2, columnNames);
                 JTableHeader anHeader = purchase_list.getTableHeader();
                 anHeader.setForeground(new Color(0).yellow);
                 anHeader.setBackground(new Color(0).black);
