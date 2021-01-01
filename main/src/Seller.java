@@ -1,6 +1,9 @@
+
 import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
+
+import static javax.swing.JOptionPane.showMessageDialog;
 
 
 public class Seller extends User {
@@ -41,7 +44,8 @@ public class Seller extends User {
             if(count == 1){
                 JOptionPane.showMessageDialog(null, "Enter different login name !");
                 return;
-            }
+            }else
+                showMessageDialog(null, "Register Sucessful");
 
             int id = 0;
             query = "select max(id) from seller";
@@ -78,7 +82,7 @@ public class Seller extends User {
     }
 
     public static void addProduct(int seller_id, String name, double price,
-                           String category, String colour, String description, int count) {
+                                  String category, String colour, String description, int count) {
         try{
 
             Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);

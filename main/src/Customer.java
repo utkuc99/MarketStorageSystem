@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 
 public class Customer extends User {
 
@@ -29,9 +31,9 @@ public class Customer extends User {
             myPrepSt.setInt(1,productID);
             rs = myPrepSt.executeQuery();
 
-           rs.next();
-           int newCount = rs.getInt(8) - count;
-           int seller_id = rs.getInt(2);
+            rs.next();
+            int newCount = rs.getInt(8) - count;
+            int seller_id = rs.getInt(2);
 
             query = "UPDATE product SET count = ? where( id = ? )";
             myPrepSt = myCon.prepareStatement(query);
@@ -151,7 +153,8 @@ public class Customer extends User {
             if(count == 1){
                 JOptionPane.showMessageDialog(null, "Enter different login name !");
                 return;
-            }
+            }else
+                showMessageDialog(null, "Register Sucessful");
 
             query = "select max(id) from customer";
             myPrepSt = myCon.prepareStatement(query);
@@ -163,7 +166,7 @@ public class Customer extends User {
             id ++ ;
 
             // Database Statement
-           query = "insert into customer values (?, ?, ?, ?, ?, ?)";
+            query = "insert into customer values (?, ?, ?, ?, ?, ?)";
 
             myPrepSt = myCon.prepareStatement(query);
             myPrepSt.setInt(1,id);

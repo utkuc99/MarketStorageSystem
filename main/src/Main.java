@@ -1,6 +1,11 @@
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.ArrayList;
+import java.awt.event.*;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Main {
 
@@ -67,99 +72,193 @@ public class Main {
                 JOptionPane.showMessageDialog(null, "Invalid login name !");
 
 
-
-         if(myCon != null)  { myCon.close();  }
+            if(myCon != null)  { myCon.close();  }
         }
         catch (Exception exc){
-        exc.printStackTrace();  }
+            exc.printStackTrace();  }
     }
 
-    public static void showInfos(){
+    public static void showInfo(){
         String info = "ID: " + user.id_ + "\nName: " + user.firstName_  + "\nLast Name: " + user.lastName_
                 + "\nLogin Name: " + user.loginName_ + "\nGender: " + user.gender_ +"\nCity: " +user.city_  ;
         JOptionPane.showMessageDialog(null, info);
     }
 
 
-
     public static void main(String[] args) {
-        // PreparedStatement myPrepSt = null;
-        // ResultSet rs = null;
 
-    try{
-        Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
+        try{
+            Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
 
-        // login(login_name) : GUI anasayfada giris icin login_name alacak, Exm : umut_cirak321
-        // Bu login_name ' sahip user customer ise is_Customer = true, seller ise is_Seller = true
-        // user = loginName' e sahip olan kisi
-        login("loginnasssfsfme");
-        showInfos();
-       // System.out.println("IS CUSTOMER: " + is_Customer + " IS SELLER: " + is_Seller);
-        //showInfos();
 
-        // adCustomer() : 4 parametre aliyor : firstname, lastname, loginname, gender, city
-       // Customer.addCustomer("Umut","Cirak","degisik","Male", "Ankara");
+            JFrame f=new JFrame("Login");
+            JLabel l1,l2;
+            l1=new JLabel("Username");
+            l1.setBounds(30,15, 100,30);
 
-        // adSeller() : 4 parametre aliyor : firstname, lastname, loginname, gender, city
-        //Customer.addCustomer("Name","LastName","loginnasssfsfme","Gender", "City");
+            JTextField F_user = new JTextField();
+            F_user.setBounds(110, 15, 200, 30);
 
-        // seller id, name, price, category, colour, description, count
-        //Seller.addProduct(user.id_, "Pen", 15.5,"School","Black","Perfect", 5);
+            JButton login_but=new JButton("Login");
+            login_but.setBounds(120,55,120,25);
+            login_but.addActionListener(new ActionListener() {
 
-                     /*
-        ArrayList<Product> purchased_List = Customer.listPurchasedProducts(user.id_);
-        for(Product p : purchased_List){
-            System.out.println(p.id_ + " " + " " + p.seller_id_ + " " +p.name + " " +
-                    p.price_ + " " + " " + p.category_ + " " +p.colour_ + " " +
-                    p.description_);
+                public void actionPerformed(ActionEvent e){
+
+                    String username = F_user.getText();
+
+                    login(username);
+
+                    if(is_Seller){
+                        seller_menu.start(username);
+                    }else if(is_Customer){
+                        user_menu.start(username);
+                    }
+                }
+            });
+
+            JButton seller_register_but=new JButton("Register Seller");
+            seller_register_but.setBounds(26,95,140,25);
+            seller_register_but.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e){
+                    JFrame g = new JFrame("Register Seller");
+
+                    JLabel l1,l2,l3,l4,l5,l6;
+                    l1=new JLabel("First Name");
+                    l1.setBounds(30,15, 100,30);
+                    l2=new JLabel("Last Name");
+                    l2.setBounds(30,53, 100,30);
+                    l3=new JLabel("Gender");
+                    l3.setBounds(30,91, 100,30);
+                    l4=new JLabel("City");
+                    l4.setBounds(30,129, 100,30);
+                    l5=new JLabel("username");
+                    l5.setBounds(30,167, 100,30);
+
+                    JTextField F_fname = new JTextField();
+                    F_fname.setBounds(110, 15, 200, 30);
+                    JTextField F_lname=new JTextField();
+                    F_lname.setBounds(110, 53, 200, 30);
+                    JTextField F_gender=new JTextField();
+                    F_gender.setBounds(110, 91, 200, 30);
+                    JTextField F_city = new JTextField();
+                    F_city.setBounds(110, 129, 200, 30);
+                    JTextField F_username=new JTextField();
+                    F_username.setBounds(110, 167, 200, 30);
+
+                    JButton submit_but=new JButton("Submit");
+                    submit_but.setBounds(130,205,80,25);
+                    submit_but.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e){
+                            Seller.addSeller(F_fname.getText(), F_lname.getText(),
+                                    F_username.getText(), F_gender.getText(),F_city.getText() );
+
+                        }
+                    });
+
+                    g.add(l1);
+                    g.add(l2);
+                    g.add(l3);
+                    g.add(l4);
+                    g.add(l5);
+                    g.add(F_fname);
+                    g.add(F_lname);
+                    g.add(F_gender);
+                    g.add(F_city);
+                    g.add(F_username);
+                    g.add(submit_but);
+
+                    g.setSize(350,260);
+                    g.setLayout(null);
+                    g.setVisible(true);
+                    g.setLocationRelativeTo(null);
+
+                }
+            });
+
+            JButton customer_register_but=new JButton("Register Customer");
+            customer_register_but.setBounds(193,95,140,25);
+            customer_register_but.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e){
+                    JFrame g = new JFrame("Register Customer");
+
+                    JLabel l1,l2,l3,l4,l5,l6;
+                    l1=new JLabel("First Name");
+                    l1.setBounds(30,15, 100,30);
+                    l2=new JLabel("Last Name");
+                    l2.setBounds(30,53, 100,30);
+                    l3=new JLabel("Gender");
+                    l3.setBounds(30,91, 100,30);
+                    l4=new JLabel("City");
+                    l4.setBounds(30,129, 100,30);
+                    l5=new JLabel("username");
+                    l5.setBounds(30,167, 100,30);
+
+                    JTextField F_fname = new JTextField();
+                    F_fname.setBounds(110, 15, 200, 30);
+                    JTextField F_lname=new JTextField();
+                    F_lname.setBounds(110, 53, 200, 30);
+                    JTextField F_gender=new JTextField();
+                    F_gender.setBounds(110, 91, 200, 30);
+                    JTextField F_city = new JTextField();
+                    F_city.setBounds(110, 129, 200, 30);
+                    JTextField F_username=new JTextField();
+                    F_username.setBounds(110, 167, 200, 30);
+
+                    JButton submit_but=new JButton("Submit");
+                    submit_but.setBounds(130,205,80,25);
+                    submit_but.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e){
+
+                            Customer.addCustomer(F_fname.getText(), F_lname.getText(),
+                                    F_username.getText(), F_gender.getText(),F_city.getText() );
+
+                        }
+                    });
+
+                    g.add(l1);
+                    g.add(l2);
+                    g.add(l3);
+                    g.add(l4);
+                    g.add(l5);
+                    g.add(F_fname);
+                    g.add(F_lname);
+                    g.add(F_gender);
+                    g.add(F_city);
+                    g.add(F_username);
+                    g.add(submit_but);
+
+                    g.setSize(350,260);
+                    g.setLayout(null);
+                    g.setVisible(true);
+                    g.setLocationRelativeTo(null);
+
+                }
+            });
+
+            f.add(login_but);
+            f.add(F_user);
+            f.add(l1);
+            f.add(seller_register_but);
+            f.add(customer_register_but);
+
+            f.setSize(360,180);
+            f.setLayout(null);
+            f.setVisible(true);
+            f.setLocationRelativeTo(null);
+
+
+
+
+
+
+
+            if(myCon != null)
+                myCon.close();
+
+        }catch (Exception exc){
+            exc.printStackTrace();
         }
-                     */
-
-       // Customer.orderProduct(1 , user.id_, 5);
-/*
-
-
-        ArrayList<Product> onSale = Seller.showProductsOnSale(user.id_);
-        for(Product p : onSale){
-            System.out.println(p.id_ + " " + " " + p.seller_id_ + " " +p.name + " " +
-                    p.price_ + " " + " " + p.category_ + " " +p.colour_ + " " +
-                    p.description_+ " " + p.count_);
-        }
-
-        ArrayList<Product> product_ALL = Customer.showProducts();
-        for(Product p : product_ALL){
-            System.out.println(p.id_ + " " + " " + p.seller_id_ + " " +p.name + " " +
-                    p.price_ + " " + " " + p.category_ + " " +p.colour_ + " " +
-                    p.description_+ " " + p.count_);
-        }
-
-        ArrayList<Product> selled_Products = Seller.showSoldProducts(1);
-        for(Product p : product_ALL){
-            System.out.println(p.id_ + " " + " " + p.seller_id_ + " " +p.name + " " +
-                    p.price_ + " " + " " + p.category_ + " " +p.colour_ + " " +
-                    p.description_+ " " + p.count_);
-        }
-
-        System.out.println("\nFILTERED PRODUCTS");
-
-        ArrayList<Product> filtered_Products = Customer.filterProducts("category","School");
-        for(Product p : filtered_Products){
-            System.out.println(p.id_ + " " + " " + p.seller_id_ + " " +p.name + " " +
-                    p.price_ + " " + " " + p.category_ + " " +p.colour_ + " " +
-                    p.description_+ " " + p.count_);
-        }
-
-*/
-
-
-
-
-        if(myCon != null)
-            myCon.close();
-
-    }catch (Exception exc){
-        exc.printStackTrace();
-    }
 
 
 
