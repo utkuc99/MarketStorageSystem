@@ -140,12 +140,9 @@ public class seller_menu {
                 submit_but.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e){
 
-                        System.out.println(F_name.getText());
-                        System.out.println(F_price.getText());
-                        System.out.println(F_categ.getText());
-                        System.out.println(F_color.getText());
-                        System.out.println(F_desc.getText());
-                        System.out.println(F_count.getText());
+                        Seller.addProduct(Main.user.id_, F_name.getText(), Double.parseDouble(F_price.getText())
+                                , F_categ.getText(), F_color.getText(), F_desc.getText(),
+                                Integer.parseInt(F_count.getText()));
 
                         boolean sucsessful = true;
 

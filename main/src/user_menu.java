@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -13,11 +14,13 @@ public class user_menu {
 
         JRadioButton rb1,rb2;
 
-        rb1= new JRadioButton("Category");
+        rb1 = new JRadioButton("Category");
         rb1.setBounds(20,100,100,30);
-        rb2=new JRadioButton("Color");
+        rb2 = new JRadioButton("Color");
         rb2.setBounds(20,145,100,30);
-        ButtonGroup bg=new ButtonGroup();
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(rb1);
+        bg.add(rb2);
         JTextField F_categ = new JTextField();
         F_categ.setBounds(140, 100, 200, 30);
         JTextField F_color = new JTextField();
@@ -92,30 +95,40 @@ public class user_menu {
             public void actionPerformed(ActionEvent e){
 
                 JFrame f = new JFrame("Products Available");
-                String[][] deneme = {
-                        { "Toilet Paper", "5", "10", "100", "Deneme", "Selpak", "18.07.2021" },
-                        { "Biskrem", "5", "10", "100", "Deneme", "Eti", "18.07.2021" },
-                        { "Water", "5", "10", "100", "Deneme", "Erikli", "18.07.2021" },
-                        { "Choclate", "5", "10", "100", "Deneme", "Nestle", "18.07.2021" }
-                };
+                ArrayList<Product> list ;
 
-                if(rb1.isSelected()){
-                    System.out.println("Condition 1");
-                    System.out.println(F_categ.getText());
+                if(rb1.isSelected()){   // Category
+                    list = Customer.filterProducts("category", F_categ.getText());
                 }
-                if(rb2.isSelected()){
-                    System.out.println("Condition 2");
-                    System.out.println(F_color.getText());
+                else if(rb2.isSelected()){    // Color
+                    list = Customer.filterProducts("colour", F_color.getText());
+                }else{
+                    list = Customer.showProducts();
                 }
+
+                int sz = list.size();
+                String[][] deneme_2 = new String[sz][7];
+                for (int i = 0; i < sz ; i++) {
+                    deneme_2[i][0] = list.get(i).name;
+                    deneme_2[i][1] = Integer.toString(list.get(i).seller_id_);
+                    deneme_2[i][2] = Double.toString(list.get(i).price_);
+                    deneme_2[i][3] = list.get(i).category_;
+                    deneme_2[i][4] = list.get(i).colour_;
+                    deneme_2[i][5] = list.get(i).description_;
+                    deneme_2[i][6] = Integer.toString(list.get(i).count_);
+                }
+
+
+
 
                 //DATABASE GET PRODUCTS
 
-                String[] columnNames = { "Name", "Buy Price", "Sell Price", "Quantity", "Category", "Brand", "Expiration Date" };
+                String[] columnNames = { "Name", "Seller ID", "Price", "Category", "Color", "Description", "Quantity" };
 
-                JTable product_list= new JTable(deneme, columnNames);
+                JTable product_list= new JTable(deneme_2, columnNames);
 
                 JTableHeader anHeader2 = product_list.getTableHeader();
-                anHeader2.setForeground(new Color(0).yellow);
+                anHeader2.setForeground(new Color(0x000000).yellow);
                 anHeader2.setBackground(new Color(0).black);
 
                 JScrollPane scrollPane = new JScrollPane(product_list);
@@ -134,17 +147,6 @@ public class user_menu {
             public void actionPerformed(ActionEvent e){
 
                 JFrame f = new JFrame("Past Purchases");
-
-                /*
-                JButton main_but=new JButton("Main Page");
-                main_but.setBounds(20,355,150,25);
-                main_but.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        f.dispose();
-                    }
-                });
-                f.add(main_but);
-                 */
 
                 String[][] deneme = {
                         { "Toilet Paper", "5", "10", "100", "Deneme", "Selpak", "18.07.2021", "aaa" },
@@ -186,10 +188,11 @@ public class user_menu {
                 buy_but.setBounds(120,55,120,25);
                 buy_but.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e){
+                        int count = 2;
 
-                        String product_id = F_product.getText();
+                        int product_id = Integer.parseInt(F_product.getText());
 
-                        System.out.println(user_id + product_id);
+                        Customer.orderProduct(product_id, Main.user.id_, count );
 
                         boolean sucsessful = true;
 
