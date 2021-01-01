@@ -2,6 +2,7 @@ package cs320;
 
 import cs320.Customer;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ public class Main {
             ResultSet rs = null;
             String check = "";
             user = new User();
+            int count = 0;
 
             // CHECK IS_CUSTOMER
             query = "select * from customer where loginname = ?";
@@ -34,6 +36,7 @@ public class Main {
             while (rs.next()){
                 check = rs.getString(4);
                 if(login_name.equals(check)){
+                    count ++;
                     loginName = login_name;
                     user.id_ = rs.getInt(1);
                     user.firstName_ = rs.getString(2);
@@ -53,6 +56,7 @@ public class Main {
             while (rs.next()){
                 check = rs.getString(4);
                 if(login_name.equals(check)){
+                    count ++;
                     loginName = login_name;
                     user.id_ = rs.getInt(1);
                     user.firstName_ = rs.getString(2);
@@ -63,6 +67,8 @@ public class Main {
                     is_Seller = true;
                 }
             }
+            if(count == 0)
+                JOptionPane.showMessageDialog(null, "Invalid login name !");
 
 
 
@@ -72,13 +78,11 @@ public class Main {
         exc.printStackTrace();  }
     }
 
-    public static User showInfos(){
-        System.out.println(user.id_ + " " + user.firstName_ + " "+ user.lastName_ + " " + user.loginName_ + " " +
-                user.gender_ + " " + user.city_);
-        return user;
+    public static void showInfos(){
+        String info = "ID: " + user.id_ + "\nName: " + user.firstName_  + "\nLast Name: " + user.lastName_
+                + "\nLogin Name: " + user.loginName_ + "\nGender: " + user.gender_ +"\nCity: " +user.city_  ;
+        JOptionPane.showMessageDialog(null, info);
     }
-
-
 
 
 
@@ -92,15 +96,16 @@ public class Main {
         // login(login_name) : GUI anasayfada giris icin login_name alacak, Exm : umut_cirak321
         // Bu login_name ' sahip user customer ise is_Customer = true, seller ise is_Seller = true
         // user = loginName' e sahip olan kisi
-        login("loginname");
-        System.out.println("IS CUSTOMER: " + is_Customer + " IS SELLER: " + is_Seller);
+        login("loginnasssfsfme");
         showInfos();
+       // System.out.println("IS CUSTOMER: " + is_Customer + " IS SELLER: " + is_Seller);
+        //showInfos();
 
         // adCustomer() : 4 parametre aliyor : firstname, lastname, loginname, gender, city
        // Customer.addCustomer("Umut","Cirak","degisik","Male", "Ankara");
 
         // adSeller() : 4 parametre aliyor : firstname, lastname, loginname, gender, city
-        //Seller.addSeller("Name","LastName","loginname","Gender", "City");
+        //Customer.addCustomer("Name","LastName","loginnasssfsfme","Gender", "City");
 
         // seller id, name, price, category, colour, description, count
         //Seller.addProduct(user.id_, "Pen", 15.5,"School","Black","Perfect", 5);
@@ -115,6 +120,8 @@ public class Main {
                      */
 
        // Customer.orderProduct(1 , user.id_, 5);
+/*
+
 
         ArrayList<Product> onSale = Seller.showProductsOnSale(user.id_);
         for(Product p : onSale){
@@ -146,7 +153,7 @@ public class Main {
                     p.description_+ " " + p.count_);
         }
 
-
+*/
 
 
 

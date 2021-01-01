@@ -1,5 +1,6 @@
 package cs320;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -21,17 +22,42 @@ public class Seller extends User {
             PreparedStatement myPrepSt = null;
             String query = "";
             ResultSet rs = null;
+            int count = 0;
 
-            // cs320.Customer burada ana ekrandaki Add cs320.User butonuna basacak ve cs320.Customer bilgilerini girecek
-            // id otomatik olarak atanıyor
+            query = "select * from customer where loginname = ?";
+            myPrepSt = myCon.prepareStatement(query);
+            myPrepSt.setString(1,loginname);
+            rs = myPrepSt.executeQuery();
+            while (rs.next()){
+                count ++;
+            }
+
+            query = "select * from seller where loginname = ?";
+            myPrepSt = myCon.prepareStatement(query);
+            myPrepSt.setString(1,loginname);
+            rs = myPrepSt.executeQuery();
+            while (rs.next()){
+                count ++;
+            }
+
+            if(count == 1){
+                JOptionPane.showMessageDialog(null, "Enter different login name !");
+                return;
+            }
+
             int id = 0;
             query = "select max(id) from seller";
             myPrepSt = myCon.prepareStatement(query);
             rs = myPrepSt.executeQuery();
-            while (rs.next()){
+
+            while(rs.next()){
                 id = rs.getInt(1);
+                if(rs.getInt(1) == 0)
+                    id = 100;
             }
+
             id ++ ;
+
 
             // Database Statement
             query = "insert into seller values (?, ?, ?, ?, ?, ?)";
@@ -103,7 +129,7 @@ public class Seller extends User {
             ResultSet rs = null;
 
 
-            query = "select * from product where sellerID = ?";
+            query = "select * from product where seller_id = ?";
             myPrepSt = myCon.prepareStatement(query);
             myPrepSt.setInt(1,seller_ID);
             rs = myPrepSt.executeQuery();

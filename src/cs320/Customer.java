@@ -1,5 +1,6 @@
 package cs320;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -41,14 +42,41 @@ public class Customer extends User {
 
             myPrepSt.executeUpdate();
 
-            query = "insert into products_purchased values (?, ?, ?, ? )";
+            int is_Exist = 0;
+            query = "select * from products_purchased where product_ID = ?";
             myPrepSt = myCon.prepareStatement(query);
             myPrepSt.setInt(1,productID);
-            myPrepSt.setInt(2,seller_id);
-            myPrepSt.setInt(3,customerID);
-            myPrepSt.setInt(4,count);
+            rs = myPrepSt.executeQuery();
 
-            myPrepSt.executeUpdate();
+            int previous = 0;
+            while (rs.next()){
+                is_Exist++;
+                if(is_Exist == 1){
+                    previous = rs.getInt(4);
+                }
+            }
+
+            if(is_Exist == 0){
+                query = "insert into products_purchased values (?, ?, ?, ? )";
+                myPrepSt = myCon.prepareStatement(query);
+                myPrepSt.setInt(1,productID);
+                myPrepSt.setInt(2,seller_id);
+                myPrepSt.setInt(3,customerID);
+                myPrepSt.setInt(4,count);
+
+                myPrepSt.executeUpdate();
+
+            }else{
+                query = "UPDATE products_purchased SET count = ? where( product_ID = ? )";
+                myPrepSt = myCon.prepareStatement(query);
+                myPrepSt.setInt(1,(count+previous));
+                myPrepSt.setInt(2,productID);
+                myPrepSt.executeUpdate();
+            }
+
+
+
+
 
 
             if(myCon != null){ myCon.close();  }
@@ -101,10 +129,31 @@ public class Customer extends User {
             PreparedStatement myPrepSt = null;
             String query = "";
             ResultSet rs = null;
-
-            // cs320.Customer burada ana ekrandaki Add cs320.User butonuna basacak ve cs320.Customer bilgilerini girecek
-            // id otomatik olarak atanıyor
             int id = 0;
+            int count = 0;
+
+            query = "select * from customer where loginname = ?";
+            myPrepSt = myCon.prepareStatement(query);
+            myPrepSt.setString(1,loginname);
+            rs = myPrepSt.executeQuery();
+            while (rs.next()){
+                count ++;
+            }
+
+            query = "select * from seller where loginname = ?";
+            myPrepSt = myCon.prepareStatement(query);
+            myPrepSt.setString(1,loginname);
+            rs = myPrepSt.executeQuery();
+            while (rs.next()){
+                count ++;
+            }
+
+
+
+            if(count == 1){
+                JOptionPane.showMessageDialog(null, "Enter different login name !");
+                return;
+            }
 
             query = "select max(id) from customer";
             myPrepSt = myCon.prepareStatement(query);
