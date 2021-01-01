@@ -32,8 +32,15 @@ public class Customer extends User {
             rs = myPrepSt.executeQuery();
 
             rs.next();
+            if(count > rs.getInt(8)){
+                JOptionPane.showMessageDialog(null,"There is no such that product");
+                return;
+            }
+
             int newCount = rs.getInt(8) - count;
             int seller_id = rs.getInt(2);
+
+
 
             query = "UPDATE product SET count = ? where( id = ? )";
             myPrepSt = myCon.prepareStatement(query);
@@ -132,6 +139,16 @@ public class Customer extends User {
             ResultSet rs = null;
             int id = 0;
             int count = 0;
+
+            if(firstname.length() <3 || lastname.length()<3 ){
+                JOptionPane.showMessageDialog(null,
+                        "Name, Surname must be larger than 3 letters! ");
+                return;
+            }else if(loginname.length()<5){
+                JOptionPane.showMessageDialog(null,
+                        "User Name must be bigger than 5 letters!");
+                return;
+            }
 
             query = "select * from customer where loginname = ?";
             myPrepSt = myCon.prepareStatement(query);

@@ -2,6 +2,8 @@ import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
 
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -299,8 +301,10 @@ public class seller_menu {
                 submit_but.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e){
 
-                        System.out.println(F_product.getText());
-                        System.out.println(F_amount.getText());
+                        int pID = Integer.parseInt(F_product.getText());
+                        int cn = Integer.parseInt(F_amount.getText());
+
+                        Seller.addExistingProduct(pID,cn);
 
                         boolean sucsessful = true;
 

@@ -25,6 +25,16 @@ public class Seller extends User {
             ResultSet rs = null;
             int count = 0;
 
+            if(firstname.length() <3 || lastname.length()<3 ){
+                JOptionPane.showMessageDialog(null,
+                        "Name, Surname must be larger than 3 letters! ");
+                return;
+            }else if(loginname.length()<5){
+                JOptionPane.showMessageDialog(null,
+                        "User Name must be bigger than 5 letters!");
+                return;
+            }
+
             query = "select * from customer where loginname = ?";
             myPrepSt = myCon.prepareStatement(query);
             myPrepSt.setString(1,loginname);
@@ -90,6 +100,18 @@ public class Seller extends User {
             String query = "";
             ResultSet rs = null;
 
+            if(name.length() < 2){
+                JOptionPane.showMessageDialog(null,"Name must be at least 2 letters!");
+                return;
+            }else if(price < 0.01){
+                JOptionPane.showMessageDialog(null,"Enter valid price!");
+                return;
+            }else if(count < 1){
+                JOptionPane.showMessageDialog(null,"Enter valid quantity!");
+                return;
+            }
+
+
             int id = 0;
             query = "select max(id) from product";
             myPrepSt = myCon.prepareStatement(query);
@@ -143,9 +165,10 @@ public class Seller extends User {
                 String colour = rs.getString(6);
                 String description = rs.getString(7);
                 int count = rs.getInt(8);
-                Product p = new Product(id,sellerID,name,price,category,colour,description,count);
-                products_on_sale.add(p);
-
+                if(count != 0){
+                    Product p = new Product(id,sellerID,name,price,category,colour,description,count);
+                    products_on_sale.add(p);
+                }
             }
 
             if(myCon != null){ myCon.close();  }
@@ -165,7 +188,7 @@ public class Seller extends User {
             String query = "";
             ResultSet rs = null;
 
-            query = "DELETE FROM product WHERE id = " + product_ID + ";";
+            query = "UPDATE product SET count = " + 0 + " WHERE (id  = "+product_ID + " )";
             myPrepSt = myCon.prepareStatement(query);
 
             myPrepSt.executeUpdate();
@@ -217,6 +240,39 @@ public class Seller extends User {
 
     }
 
+
+    public static void addExistingProduct(int product_id,int add_count ){
+
+        try{
+            Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
+            PreparedStatement myPrepSt = null;
+            String query = "";
+            ResultSet rs = null;
+
+
+            int count = 0;
+            query = "SELECT * FROM product WHERE id ="+ product_id+  ";" ;
+            myPrepSt = myCon.prepareStatement(query);
+            rs = myPrepSt.executeQuery();
+            rs.next();
+            count = rs.getInt(8);
+
+            count=count+add_count ;
+            query = "UPDATE product SET count = " + count + " WHERE (id  = "+product_id + " )";
+            myPrepSt = myCon.prepareStatement(query);
+            // Database Statement
+
+            myPrepSt.executeUpdate();
+
+            if(myCon != null){ myCon.close();  }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+    }
 
 
 
