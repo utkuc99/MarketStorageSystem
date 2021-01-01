@@ -29,6 +29,7 @@ public class user_menu {
         show_info_but.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 JFrame g = new JFrame("User Info");
+                User u = Main.user;
 
                 JLabel l1,l2,l3,l4,l5,l6;
                 JLabel l12,l22,l32,l42,l52,l62;
@@ -43,7 +44,7 @@ public class user_menu {
                 l5=new JLabel("username");
                 l5.setBounds(30,167, 100,30);
 
-                String name = "Utku", lastname = "Çelebiöven", gender = "Male", city = "İzmir", username = "utkuc99";
+                String name = u.firstName_, lastname = u.lastName_, gender = u.gender_, city = u.city_, username = u.loginName_;
 
                 l12=new JLabel(name);
                 l12.setBounds(110,15, 100,30);
