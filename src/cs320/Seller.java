@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 
 public class Seller extends User {
 
@@ -43,7 +45,8 @@ public class Seller extends User {
             if(count == 1){
                 JOptionPane.showMessageDialog(null, "Enter different login name !");
                 return;
-            }
+            }else
+                showMessageDialog(null, "Register Sucessful");
 
             int id = 0;
             query = "select max(id) from seller";
