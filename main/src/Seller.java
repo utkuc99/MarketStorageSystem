@@ -1,5 +1,3 @@
-package cs320;
-
 import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;

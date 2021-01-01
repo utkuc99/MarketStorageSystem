@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.*;
 import static javax.swing.JOptionPane.showMessageDialog;
+
 public class login_page {
     public static void main(String args[]) {
 
@@ -19,6 +20,8 @@ public class login_page {
             public void actionPerformed(ActionEvent e){
 
                 String username = F_user.getText();
+
+                Main.login(username);
 
                 System.out.println(username);
 

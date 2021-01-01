@@ -1,7 +1,3 @@
-package cs320;
-
-import cs320.Customer;
-
 import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,5 +1,3 @@
-package cs320;
-
 public class Product {
 
     public int id_;

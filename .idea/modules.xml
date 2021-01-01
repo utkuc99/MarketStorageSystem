@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GUI/GUI.iml" filepath="$PROJECT_DIR$/GUI/GUI.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/MarketStrorageSystem.iml" filepath="$PROJECT_DIR$/.idea/MarketStrorageSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/cs320/cs320.iml" filepath="$PROJECT_DIR$/src/cs320/cs320.iml" />
+      <module fileurl="file://$PROJECT_DIR$/main/main.iml" filepath="$PROJECT_DIR$/main/main.iml" />
     </modules>
   </component>
 </project>
