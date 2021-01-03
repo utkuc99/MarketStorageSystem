@@ -9,7 +9,7 @@ public class Customer extends User {
 
     static final String DB_URL = "jdbc:mysql://localhost:3306/marketstoragesystem?autoReconnect=true&useSSL=false";
     static final String USER = "root";
-    static final String PASS = "şifre";
+    static final String PASS = "418012Utku";
 
 
     public Customer(){ super();}

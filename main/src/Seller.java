@@ -10,7 +10,7 @@ public class Seller extends User {
 
     static final String DB_URL = "jdbc:mysql://localhost:3306/marketstoragesystem?autoReconnect=true&useSSL=false";
     static final String USER = "root";
-    static final String PASS = "şifre";
+    static final String PASS = "418012Utku";
 
     public Seller(){ super();}
     public Seller(int id_, String firstName_, String lastName_, String loginName_, String gender_, String city_) {
@@ -220,7 +220,7 @@ public class Seller extends User {
             productsSet = myPrepSt.executeQuery();
             while (productsSet.next()){
 
-                int id = productsSet.getInt(1);
+                int id = productsSet.getInt(6);
                 int buyer_id = productsSet.getInt(3);
                 int count = productsSet.getInt(4);
                 String name = productsSet.getString(7);
