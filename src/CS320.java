@@ -69,6 +69,8 @@ public class CS320 {
 
    product1.addexistingProduct(3,2);
 
+    product1.removeProduct(2);
+
 
 
 

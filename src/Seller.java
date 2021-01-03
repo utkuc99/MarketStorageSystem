@@ -88,6 +88,32 @@ public class Seller extends User {
     };
 
 
+    void removeProduct (int product_id )
+    {
+        try{
+            Connection myCon =  DriverManager.getConnection(url,USER,PASS);
+            PreparedStatement myPrepSt = null;
+            String query = "";
+            ResultSet rs = null;
+
+
+            int idp = 0;
+            query = "DELETE FROM product WHERE product_id = " + product_id + ";";
+            myPrepSt = myCon.prepareStatement(query);
+
+            myPrepSt.executeUpdate();
+
+            if(myCon != null){ myCon.close();  }
+
+
+
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    };
+
 
 
 
