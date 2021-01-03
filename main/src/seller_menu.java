@@ -263,7 +263,7 @@ public class seller_menu {
 
                 //DATABASE GET PRODUCTS
 
-                String[] columnNames = { "Product ID","Name", "Seller ID", "Price", "Category", "Color", "Description", "Quantity" };
+                String[] columnNames = { "Product ID","Name", "Buyer ID", "Price", "Category", "Color", "Description", "Quantity" };
                 JTable product_list= new JTable(deneme_2, columnNames);
                 JTableHeader anHeader2 = product_list.getTableHeader();
                 anHeader2.setForeground(new Color(0).yellow);

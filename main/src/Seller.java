@@ -8,16 +8,16 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Seller extends User {
 
-    static final String DB_URL = "jdbc:mysql://localhost:3306/marketstoragesystem";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/marketstoragesystem?autoReconnect=true&useSSL=false";
     static final String USER = "root";
-    static final String PASS = "Uc1234";
+    static final String PASS = "şifre";
 
     public Seller(){ super();}
     public Seller(int id_, String firstName_, String lastName_, String loginName_, String gender_, String city_) {
         super(id_, firstName_, lastName_, loginName_, gender_, city_);
     }
 
-    public static void addSeller(String firstname, String lastname, String loginname, String gender, String city){
+    public static boolean addSeller(String firstname, String lastname, String loginname, String gender, String city){
         try{
             Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
             PreparedStatement myPrepSt = null;
@@ -28,11 +28,11 @@ public class Seller extends User {
             if(firstname.length() <3 || lastname.length()<3 ){
                 JOptionPane.showMessageDialog(null,
                         "Name, Surname must be larger than 3 letters! ");
-                return;
+                return false;
             }else if(loginname.length()<5){
                 JOptionPane.showMessageDialog(null,
                         "User Name must be bigger than 5 letters!");
-                return;
+                return false;
             }
 
             query = "select * from customer where loginname = ?";
@@ -53,7 +53,7 @@ public class Seller extends User {
 
             if(count == 1){
                 JOptionPane.showMessageDialog(null, "Enter different login name !");
-                return;
+                return false;
             }else
                 showMessageDialog(null, "Register Sucessful");
 
@@ -86,8 +86,11 @@ public class Seller extends User {
 
             if(myCon != null){ myCon.close();  }
 
+            return true;
+
         }catch (Exception exc){
             exc.printStackTrace();
+            return false;
         }
     }
 
@@ -218,15 +221,15 @@ public class Seller extends User {
             while (productsSet.next()){
 
                 int id = productsSet.getInt(1);
-                int seller_id = productsSet.getInt(2);
+                int buyer_id = productsSet.getInt(3);
                 int count = productsSet.getInt(4);
                 String name = productsSet.getString(7);
-                double price = productsSet.getDouble(8);
-                String category = productsSet.getString(9);
-                String colour = productsSet.getString(10);
-                String description = productsSet.getString(11);
+                double price = productsSet.getDouble(9);
+                String category = productsSet.getString(10);
+                String colour = productsSet.getString(11);
+                String description = productsSet.getString(12);
 
-                Product p = new Product(id,seller_id,name,price,category,colour,description, count);
+                Product p = new Product(id,buyer_id,name,price,category,colour,description, count);
                 selled_products.add(p);
             }
 

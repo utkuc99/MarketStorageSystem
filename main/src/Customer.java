@@ -7,9 +7,9 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Customer extends User {
 
-    static final String DB_URL = "jdbc:mysql://localhost:3306/marketstoragesystem";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/marketstoragesystem?autoReconnect=true&useSSL=false";
     static final String USER = "root";
-    static final String PASS = "Uc1234";
+    static final String PASS = "şifre";
 
 
     public Customer(){ super();}
@@ -18,12 +18,14 @@ public class Customer extends User {
     }
 
 
-    public static void orderProduct(int productID, int customerID, int count){
+    public static boolean orderProduct(int productID, int customerID, int count){
         try{
             Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
             PreparedStatement myPrepSt = null;
             String query = "";
             ResultSet rs = null;
+
+            System.out.println(customerID);
 
 
             query = "select * from product where id = ?";
@@ -31,11 +33,20 @@ public class Customer extends User {
             myPrepSt.setInt(1,productID);
             rs = myPrepSt.executeQuery();
 
-            rs.next();
-            if(count > rs.getInt(8)){
-                JOptionPane.showMessageDialog(null,"There is no such that product");
-                return;
+
+
+
+            if(!rs.next()){
+                JOptionPane.showMessageDialog(null,"There are no such that product!");
+                return false;
             }
+
+            if(count > rs.getInt(8)){
+                JOptionPane.showMessageDialog(null,"There aren't enough quantity available!");
+                return false;
+            }
+
+
 
             int newCount = rs.getInt(8) - count;
             int seller_id = rs.getInt(2);
@@ -50,9 +61,10 @@ public class Customer extends User {
             myPrepSt.executeUpdate();
 
             int is_Exist = 0;
-            query = "select * from products_purchased where product_ID = ?";
+            query = "select * from products_purchased where (product_ID = ? AND customer_ID = ?)";
             myPrepSt = myCon.prepareStatement(query);
             myPrepSt.setInt(1,productID);
+            myPrepSt.setInt(2,customerID);
             rs = myPrepSt.executeQuery();
 
             int previous = 0;
@@ -64,7 +76,7 @@ public class Customer extends User {
             }
 
             if(is_Exist == 0){
-                query = "insert into products_purchased values (?, ?, ?, ? )";
+                query = "insert into products_purchased (product_ID, seller_ID, customer_ID, count) values (?, ?, ?, ? )";
                 myPrepSt = myCon.prepareStatement(query);
                 myPrepSt.setInt(1,productID);
                 myPrepSt.setInt(2,seller_id);
@@ -74,10 +86,11 @@ public class Customer extends User {
                 myPrepSt.executeUpdate();
 
             }else{
-                query = "UPDATE products_purchased SET count = ? where( product_ID = ? )";
+                query = "UPDATE products_purchased SET count = ? where( product_ID = ? AND customer_ID = ? )";
                 myPrepSt = myCon.prepareStatement(query);
                 myPrepSt.setInt(1,(count+previous));
                 myPrepSt.setInt(2,productID);
+                myPrepSt.setInt(3,customerID);
                 myPrepSt.executeUpdate();
             }
 
@@ -87,9 +100,11 @@ public class Customer extends User {
 
 
             if(myCon != null){ myCon.close();  }
+            return true;
 
         }catch (Exception exc){
             exc.printStackTrace();
+            return false;
         }
 
     }
@@ -112,11 +127,11 @@ public class Customer extends User {
                 int id = productsSet.getInt(1);
                 int seller_id = productsSet.getInt(2);
                 int count = productsSet.getInt(4);
-                String name = productsSet.getString(7);
-                double price = productsSet.getDouble(8);
-                String category = productsSet.getString(9);
-                String colour = productsSet.getString(10);
-                String description = productsSet.getString(11);
+                String name = productsSet.getString(8);
+                double price = productsSet.getDouble(9);
+                String category = productsSet.getString(10);
+                String colour = productsSet.getString(11);
+                String description = productsSet.getString(12);
 
                 Product p = new Product(id,seller_id,name,price,category,colour,description,count);
                 purchased_product.add(p);
@@ -131,7 +146,7 @@ public class Customer extends User {
         return purchased_product;
     }
 
-    public static void addCustomer(String firstname, String lastname, String loginname, String gender, String city){
+    public static boolean addCustomer(String firstname, String lastname, String loginname, String gender, String city){
         try{
             Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
             PreparedStatement myPrepSt = null;
@@ -143,11 +158,11 @@ public class Customer extends User {
             if(firstname.length() <3 || lastname.length()<3 ){
                 JOptionPane.showMessageDialog(null,
                         "Name, Surname must be larger than 3 letters! ");
-                return;
+                return false;
             }else if(loginname.length()<5){
                 JOptionPane.showMessageDialog(null,
                         "User Name must be bigger than 5 letters!");
-                return;
+                return false;
             }
 
             query = "select * from customer where loginname = ?";
@@ -170,7 +185,7 @@ public class Customer extends User {
 
             if(count == 1){
                 JOptionPane.showMessageDialog(null, "Enter different login name !");
-                return;
+                return false;
             }else
                 showMessageDialog(null, "Register Sucessful");
 
@@ -198,8 +213,11 @@ public class Customer extends User {
 
             if(myCon != null){ myCon.close();  }
 
+            return true;
+
         }catch (Exception exc){
             exc.printStackTrace();
+            return false;
         }
 
     }

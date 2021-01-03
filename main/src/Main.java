@@ -9,9 +9,9 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Main {
 
-    static final String DB_URL = "jdbc:mysql://localhost:3306/marketstoragesystem";
+    static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/marketstoragesystem?autoReconnect=true&useSSL=false";
     static final String USER = "root";
-    static final String PASS = "Uc1234";
+    static final String PASS = "şifre";
 
     static boolean is_Customer = false;
     public static boolean is_Seller = false;
@@ -45,6 +45,7 @@ public class Main {
                     user.loginName_ = rs.getString(4);
                     user.gender_ = rs.getString(5);
                     user.city_ = rs.getString(6);
+                    is_Seller = false;
                     is_Customer = true;
                 }
             }
@@ -65,6 +66,7 @@ public class Main {
                     user.loginName_ = rs.getString(4);
                     user.gender_ = rs.getString(5);
                     user.city_ = rs.getString(6);
+                    is_Customer = false;
                     is_Seller = true;
                 }
             }
@@ -150,9 +152,8 @@ public class Main {
                     submit_but.setBounds(130,205,80,25);
                     submit_but.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e){
-                            Seller.addSeller(F_fname.getText(), F_lname.getText(),
-                                    F_username.getText(), F_gender.getText(),F_city.getText() );
-
+                            boolean result = Seller.addSeller(F_fname.getText(), F_lname.getText(), F_username.getText(), F_gender.getText(),F_city.getText() );
+                            if(result) g.dispose();
                         }
                     });
 
@@ -210,9 +211,8 @@ public class Main {
                     submit_but.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e){
 
-                            Customer.addCustomer(F_fname.getText(), F_lname.getText(),
-                                    F_username.getText(), F_gender.getText(),F_city.getText() );
-
+                            boolean result = Customer.addCustomer(F_fname.getText(), F_lname.getText(), F_username.getText(), F_gender.getText(),F_city.getText() );
+                            if(result) g.dispose();
                         }
                     });
 

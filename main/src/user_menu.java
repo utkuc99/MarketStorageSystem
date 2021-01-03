@@ -191,25 +191,29 @@ public class user_menu {
                 JTextField F_product = new JTextField();
                 F_product.setBounds(110, 15, 200, 30);
 
+                l2=new JLabel("Buy Amount");
+                l2.setBounds(30,60, 100,30);
+
+                JTextField F_amount = new JTextField();
+                F_amount.setBounds(110, 60, 200, 30);
+
                 JButton buy_but=new JButton("BUY");
-                buy_but.setBounds(120,55,120,25);
+                buy_but.setBounds(120,105,120,25);
                 buy_but.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e){
                         int count = 2;
 
                         int product_id = Integer.parseInt(F_product.getText());
 
-                        Customer.orderProduct(product_id, Main.user.id_, count );
 
-                        boolean sucsessful = true;
+
+                        boolean sucsessful = Customer.orderProduct(product_id, Main.user.id_, Integer.parseInt(F_amount.getText()));
 
                         //DATABASE ADD PRODUCT
 
                         if(sucsessful) {
-                            showMessageDialog(null, "Register Sucessful");
+                            showMessageDialog(null, "Buy Sucessful");
                             f.dispose();
-                        }else{
-                            showMessageDialog(null, "Register Failed");
                         }
 
                     }
@@ -217,9 +221,11 @@ public class user_menu {
 
                 f.add(buy_but);
                 f.add(l1);
+                f.add(l2);
                 f.add(F_product);
+                f.add(F_amount);
 
-                f.setSize(360,180);
+                f.setSize(360,200);
                 f.setLayout(null);
                 f.setVisible(true);
                 f.setLocationRelativeTo(null);
