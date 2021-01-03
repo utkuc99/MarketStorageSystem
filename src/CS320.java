@@ -10,13 +10,12 @@ import java.sql.Statement;
 
 
 
-
-
 public class CS320 {
 
 
 
-    public static void main(String[] args) {
+        public static void main(String[] args) {
+
         try {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -48,8 +47,19 @@ public class CS320 {
             ex.printStackTrace();
 
             System.out.println("Veritabanına bağlantı sağlanamadı!");
-
         }
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+};
 
 }
