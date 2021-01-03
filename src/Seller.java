@@ -51,6 +51,42 @@ public class Seller extends User {
     };
 
 
+    void addexistingProduct(int product_id,int addcount ){
+
+        try{
+            Connection myCon =  DriverManager.getConnection(url,USER,PASS);
+            PreparedStatement myPrepSt = null;
+            String query = "";
+            ResultSet rs = null;
+
+
+            int count = 0;
+            query = "SELECT * FROM product WHERE product_id ="+ product_id+  ";" ;
+            myPrepSt = myCon.prepareStatement(query);
+            rs = myPrepSt.executeQuery();
+            rs.next();
+                count = rs.getInt(7);
+
+            count=count+addcount ;
+            query = "UPDATE product SET count = " + count + " WHERE (product_id  = "+product_id + " )";
+            myPrepSt = myCon.prepareStatement(query);
+// Database Statement
+
+            myPrepSt.executeUpdate();
+
+            if(myCon != null){ myCon.close();  }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+
+
+    };
+
 
 
 

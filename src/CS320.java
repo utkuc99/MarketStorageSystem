@@ -67,6 +67,8 @@ public class CS320 {
     Seller product1= new Seller();
    // product1.addProduct("GIDA","EKMEK",1.50,"Blue","That is for white's",10,1);
 
+   product1.addexistingProduct(3,2);
+
 
 
 
