@@ -25,6 +25,11 @@ public class Product {
     }
 
 
+    public void showInfos(String product_category_code, String product_name, double price, String product_color, String product_description, int count) {
+
+
+
+    };
 
 
 }
