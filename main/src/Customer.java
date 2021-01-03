@@ -7,9 +7,9 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Customer extends User {
 
-    static final String DB_URL = "jdbc:mysql://localhost:3306/marketstoragesystem?autoReconnect=true&useSSL=false";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/marketstoragesystem";
     static final String USER = "root";
-    static final String PASS = "418012Utku";
+    static final String PASS = "Uc1234";
 
 
     public Customer(){ super();}
@@ -24,8 +24,6 @@ public class Customer extends User {
             PreparedStatement myPrepSt = null;
             String query = "";
             ResultSet rs = null;
-
-            System.out.println(customerID);
 
 
             query = "select * from product where id = ?";
@@ -118,7 +116,7 @@ public class Customer extends User {
             ResultSet productsSet = null;
 
 
-            query = "select * from products_purchased , product where customer_ID = ?";
+            query = "select * from products_purchased , product where product_ID = id and customer_ID = ?";
             myPrepSt = myCon.prepareStatement(query);
             myPrepSt.setInt(1,customerID);
             productsSet = myPrepSt.executeQuery();
@@ -245,9 +243,10 @@ public class Customer extends User {
                 String colour = rs.getString(6);
                 String description = rs.getString(7);
                 int count = rs.getInt(8);
-                Product p = new Product(id,seller_id,name,price,category,colour,description,count);
-                products_all.add(p);
-
+                if(count != 0){
+                    Product p = new Product(id,seller_id,name,price,category,colour,description,count);
+                    products_all.add(p);
+                }
             }
 
             if(myCon != null){ myCon.close();  }

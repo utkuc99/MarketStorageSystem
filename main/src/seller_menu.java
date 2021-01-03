@@ -161,10 +161,10 @@ public class seller_menu {
                         //DATABASE ADD PRODUCT
 
                         if(sucsessful) {
-                            showMessageDialog(null, "Register Sucessful");
+                            showMessageDialog(null, "Product is added.");
                             g.dispose();
                         }else{
-                            showMessageDialog(null, "Register Failed");
+                            showMessageDialog(null, "Product addition is failed.");
                         }
 
                     }
@@ -213,20 +213,9 @@ public class seller_menu {
                     public void actionPerformed(ActionEvent e){
 
                         int pID = Integer.parseInt(F_id.getText());
-                        Seller.removeProduct(pID);
-
-                        boolean sucsessful = true;
-
-                        //DATABASE REMOVE PRODUCT
-
-                        if(sucsessful) {
-                            showMessageDialog(null, "Removal Sucessful");
-                            g.dispose();
-                        }else{
-                            showMessageDialog(null, "Removal Failed");
-                        }
-
+                        Seller.removeProduct(pID, Main.user.id_);
                     }
+
                 });
 
                 g.add(l1);
@@ -304,19 +293,7 @@ public class seller_menu {
                         int pID = Integer.parseInt(F_product.getText());
                         int cn = Integer.parseInt(F_amount.getText());
 
-                        Seller.addExistingProduct(pID,cn);
-
-                        boolean sucsessful = true;
-
-                        //DATABASE ADD PRODUCT
-
-                        if(sucsessful) {
-                            showMessageDialog(null, "Register Sucessful");
-                            g.dispose();
-                        }else{
-                            showMessageDialog(null, "Register Failed");
-                        }
-
+                        Seller.addExistingProduct(pID,cn,Main.user.id_);
                     }
                 });
 

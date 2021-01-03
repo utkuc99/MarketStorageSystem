@@ -9,9 +9,9 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Main {
 
-    static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/marketstoragesystem?autoReconnect=true&useSSL=false";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/marketstoragesystem";
     static final String USER = "root";
-    static final String PASS = "418012Utku";
+    static final String PASS = "Uc1234";
 
     static boolean is_Customer = false;
     public static boolean is_Seller = false;

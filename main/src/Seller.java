@@ -8,9 +8,9 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Seller extends User {
 
-    static final String DB_URL = "jdbc:mysql://localhost:3306/marketstoragesystem?autoReconnect=true&useSSL=false";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/marketstoragesystem";
     static final String USER = "root";
-    static final String PASS = "418012Utku";
+    static final String PASS = "Uc1234";
 
     public Seller(){ super();}
     public Seller(int id_, String firstName_, String lastName_, String loginName_, String gender_, String city_) {
@@ -183,7 +183,7 @@ public class Seller extends User {
 
     }
 
-    public static void removeProduct(int product_ID){
+    public static void removeProduct(int product_ID, int seller_id){
 
         try{
             Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
@@ -191,7 +191,24 @@ public class Seller extends User {
             String query = "";
             ResultSet rs = null;
 
-            query = "UPDATE product SET count = " + 0 + " WHERE (id  = "+product_ID + " )";
+            query = "select * from product where(id, seller_id) = ( ?, ? )";
+            myPrepSt = myCon.prepareStatement(query);
+            myPrepSt.setInt(1,product_ID);
+            myPrepSt.setInt(2,seller_id);
+            rs = myPrepSt.executeQuery();
+
+            boolean is_exist = false;
+            while (rs.next()){
+                is_exist = true;
+            }
+            if(is_exist)
+                showMessageDialog(null, "Removal Successful");
+            else{
+                showMessageDialog(null, "Please type correct product id");
+                return;
+            }
+
+            query = "UPDATE product SET count = " + 0 + " WHERE (id, seller_id)  = ("+product_ID + ","+seller_id +")";
             myPrepSt = myCon.prepareStatement(query);
 
             myPrepSt.executeUpdate();
@@ -214,7 +231,7 @@ public class Seller extends User {
             ResultSet productsSet = null;
 
 
-            query = "select * from products_purchased ,product where product.seller_id = ?";
+            query = "select * from products_purchased , product where product_ID = id and products_purchased.seller_iD = ?";
             myPrepSt = myCon.prepareStatement(query);
             myPrepSt.setInt(1,sellerID);
             productsSet = myPrepSt.executeQuery();
@@ -223,7 +240,7 @@ public class Seller extends User {
                 int id = productsSet.getInt(6);
                 int buyer_id = productsSet.getInt(3);
                 int count = productsSet.getInt(4);
-                String name = productsSet.getString(7);
+                String name = productsSet.getString(8);
                 double price = productsSet.getDouble(9);
                 String category = productsSet.getString(10);
                 String colour = productsSet.getString(11);
@@ -243,22 +260,30 @@ public class Seller extends User {
 
     }
 
-
-    public static void addExistingProduct(int product_id,int add_count ){
+    public static void addExistingProduct(int product_id,int add_count ,int seller_ID){
 
         try{
             Connection myCon =  DriverManager.getConnection(DB_URL,USER,PASS);
             PreparedStatement myPrepSt = null;
             String query = "";
             ResultSet rs = null;
-
+            boolean is_exist = false;
 
             int count = 0;
-            query = "SELECT * FROM product WHERE id ="+ product_id+  ";" ;
+            query = "SELECT * FROM product WHERE (id, seller_id) =("+ product_id+", "+seller_ID+ ")" ;
             myPrepSt = myCon.prepareStatement(query);
             rs = myPrepSt.executeQuery();
-            rs.next();
-            count = rs.getInt(8);
+            while (rs.next()){
+                count = rs.getInt(8);
+                is_exist = true;
+            }
+            if(is_exist)
+                showMessageDialog(null, "Successfully increased.");
+            else{
+                showMessageDialog(null, "Please type correct product id");
+                return;
+            }
+
 
             count=count+add_count ;
             query = "UPDATE product SET count = " + count + " WHERE (id  = "+product_id + " )";
