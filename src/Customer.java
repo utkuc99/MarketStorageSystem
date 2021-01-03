@@ -125,8 +125,77 @@ public class Customer extends User {
         return purchased_product;
     }
 
+    public static void addCustomer(String firstname, String lastname, String loginname, String gender, String city){
+        try{
+            Connection connection =  DriverManager.getConnection(DB_URL,USER,PASS);
+            PreparedStatement prep = null;
+            String query = "";
+            ResultSet rs = null;
+            int id = 0;
+            int count = 0;
+
+            if(firstname.length() <3 || lastname.length()<3 ){
+                JOptionPane.showMessageDialog(null,
+                        "Name, Surname must be larger than 3 letters! ");
+                return;
+            }else if(loginname.length()<5){
+                JOptionPane.showMessageDialog(null,
+                        "User Name must be bigger than 5 letters!");
+                return;
+            }
+
+            query = "select * from customer where loginname = ?";
+            prep = connection.prepareStatement(query);
+            prep.setString(1,loginname);
+            rs = prep.executeQuery();
+            while (rs.next()){
+                count ++;
+            }
+
+            query = "select * from seller where loginname = ?";
+            prep = connection.prepareStatement(query);
+            prep.setString(1,loginname);
+            rs = prep.executeQuery();
+            while (rs.next()){
+                count ++;
+            }
 
 
+
+            if(count == 1){
+                JOptionPane.showMessageDialog(null, "Enter different login name !");
+                return;
+            }else
+                showMessageDialog(null, "Register Sucessful");
+
+            query = "select max(id) from customer";
+            prep = connection.prepareStatement(query);
+            rs = prep.executeQuery();
+
+            while (rs.next()){
+                id = rs.getInt(1);
+            }
+            id ++ ;
+
+            query = "insert into customer values (?, ?, ?, ?, ?, ?)";
+
+            prep = connection.prepareStatement(query);
+            prep.setInt(1,id);
+            prep.setString(2,firstname);
+            prep.setString(3,lastname);
+            prep.setString(4,loginname);
+            prep.setString(5,gender);
+            prep.setString(6,city);
+
+            prep.executeUpdate();
+
+            if(connection != null){ connection.close();  }
+
+        }catch (Exception exc){
+            exc.printStackTrace();
+        }
+
+    }
 
 
 
